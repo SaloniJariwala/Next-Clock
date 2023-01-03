@@ -1,0 +1,46 @@
+.clock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0 0 0;
+}
+
+.divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alarmList {
+    margin: 20px 150px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.alarm {
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid rgb(235, 235, 235);
+    padding: 30px 40px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn {
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid rgb(235, 235, 235);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btnbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btnbar button {
+    margin-right: 5px;
+}

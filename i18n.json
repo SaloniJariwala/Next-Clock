@@ -1,0 +1,19 @@
+{
+    "locales": [
+        "en",
+        "fr",
+        "hi",
+        "cn",
+        "jp",
+        "sp"
+    ],
+    "defaultLocale": "en",
+    "pages": {
+        "*": [
+            "common"
+        ],
+        "/time": [
+            "time"
+        ]
+    }
+}

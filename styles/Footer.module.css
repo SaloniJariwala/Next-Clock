@@ -1,0 +1,48 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.saperator {
+    margin: 0 10px;
+    width: 2px;
+    border: 1px solid gray;
+    height: 15px;
+}
+
+.innerFooter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.link {
+    color: #112466;
+    font-size: 14px;
+    text-decoration: unset;
+}
+
+.copyright {
+    width: 275px;
+    height: 17px;
+
+    /* Body Small */
+
+    font-family: 'Century Gothic';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+
+    opacity: 0.5;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}

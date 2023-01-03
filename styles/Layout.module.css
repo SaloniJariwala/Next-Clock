@@ -1,0 +1,82 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.rightSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.rightSection select {
+    margin-left: 20px;
+}
+
+.tabbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 20px;
+}
+
+.tabSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.tabs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 40px;
+    border: 1px solid rgb(235, 235, 235);
+    cursor: pointer;
+    width: 150px;
+}
+
+.icon {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border: 1px solid rgb(235, 235, 235);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabText {
+    color: #112466;
+    margin-top: 5px;
+}
+
+.languageBtn {
+    border: unset;
+    padding: 5px;
+    background-color: transparent;
+    margin-left: 10px;
+    position: relative;
+}
+
+.optionsOuter {
+    position: absolute;
+    top: 8%;
+    right: 16.5%;
+    height: fit-content;
+}
+
+.options {
+    list-style: none;
+    border: 1px solid rgb(235, 235, 235);
+}
+
+.link {
+    text-decoration: unset;
+    color: #112466;
+    padding: 10px;
+}
