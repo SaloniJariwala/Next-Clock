@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { Divider, Switch } from 'antd';
 import logo from "../Assets/logo.png";
 import styles from "../styles/Layout.module.css";
-import { languages } from "../data/languages";
 import Tabs from './Tabs';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
