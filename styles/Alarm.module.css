@@ -16,14 +16,22 @@
     margin: 20px 150px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .alarm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: fit-content;
     height: fit-content;
+    margin-bottom: 1.5rem;
     border: 1px solid rgb(235, 235, 235);
-    padding: 30px 40px;
+    padding: 30px 60px;
     border-radius: 50%;
+    color: #112466;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -43,4 +51,164 @@
 
 .btnbar button {
     margin-right: 5px;
+}
+
+.setBtn {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 25px;
+    gap: 10px;
+    color: #112466;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+
+.alarmModalTitle {
+    width: 100%;
+    color: #112466;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modal {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: #112466;
+    font-family: 'Rubik', sans-serif;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.col {
+    width: 100%;
+    margin: 0 10px;
+}
+
+.inputTitle {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.dividerBar {
+    margin: 15px 0;
+}
+
+.titleOuter {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.playBtn {
+    border: unset;
+    background-color: white;
+}
+
+.uploadBtn {
+    background-color: white;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    padding: .375rem .75rem .375rem .75rem;
+    height: 40px;
+    position: relative;
+    /* line-height: 1; */
+}
+
+.audioContainer {
+    display: flex;
+    width: 100%;
+}
+
+.audioSelect {
+    margin-right: 10px;
+    height: 40px;
+    line-height: 1;
+    width: 100%;
+}
+
+.outerContainer {
+    display: flex;
+    width: 100%;
+}
+
+.antCheckboxWrapper {
+    color: #112466;
+    font-weight: bold;
+}
+
+.btnCol {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btnCol :first-child {
+    margin-right: 10px;
+}
+
+.footerBtn {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 7px 18px;
+    /* gap: 10px; */
+    color: #112466;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+
+.ringModalOuter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 100px;
+}
+
+.ringTitle {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 160%;
+    text-align: center;
+    text-shadow: -5px -5px 10px #FAFBFF, 5px 5px 10px #A6ABBD;
+}
+
+.ringNote {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    text-align: center;
+    text-shadow: -5px -5px 10px #FAFBFF, 5px 5px 10px #A6ABBD;
+}
+
+.ringTime {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
+    font-size: 70px;
+    line-height: 88px;
+    text-align: center;
+    text-shadow: -5px -5px 10px #FAFBFF, 5px 5px 10px #A6ABBD;
+}
+
+.ringBtnBar {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
