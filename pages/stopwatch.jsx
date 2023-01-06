@@ -2,6 +2,7 @@ import Head from 'next/head';
 import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import StopWatch from '../components/StopWatch';
 import styles from '../styles/Index.module.css';
 
 const Stopwatch = () => {
@@ -16,7 +17,7 @@ const Stopwatch = () => {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
                 <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet" />
             </Head>
-            
+                <StopWatch/>
         </>
     )
 }
