@@ -1,0 +1,19 @@
+{
+    "time_now": "Time Now",
+    "alarm": "警報",
+    "set_alarm": "Set Alarm",
+    "edit_alarm": "Edit Alarm",
+    "country": "Country",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "sound": "Sound",
+    "volume": "Volume",
+    "alarm_title": "Alarm Title",
+    "enter_alarm_title": "Enter Alarm Title",
+    "alarm_note": "Alarm Note",
+    "enter_alarm_note": "Enter Alarm Note",
+    "repeat": "Repeat",
+    "test": "Test",
+    "start": "Start Alarm",
+    "ampm": "AM/PM"
+}
