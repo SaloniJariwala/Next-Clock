@@ -8,6 +8,7 @@ import Reminder from "../public/Assets/svg/reminder.svg";
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
+import i18n from '../i18n';
 
 const Tabs = () => {
 
@@ -51,14 +52,14 @@ const Tabs = () => {
                 <div className={styles.icon}>
                     <Image alt="alarm" src={Alarm} width={30} height={30} />
                 </div>
-                <span className={styles.tabText}>{t("common:alarm")}</span>
+                <span className={styles.tabText}>{i18n.t('alarm')}</span>
             </div>
             <div
                 className={styles.tabs}
                 onClick={() => handleClick('timer')}
             >
                 <div className={styles.icon}>
-                    <Image alt=""timer src={Timer} width={30} height={30} />
+                    <Image alt="timer" src={Timer} width={30} height={30} />
                 </div>
                 <span className={styles.tabText}>Timer</span>
             </div>

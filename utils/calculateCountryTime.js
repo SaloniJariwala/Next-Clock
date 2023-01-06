@@ -1,0 +1,6 @@
+export const calculateTime = (offset) => {
+    const date = new Date();
+    const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+    let result = new Date(utc + (3600000 * offset));
+    return result;
+}

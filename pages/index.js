@@ -1,9 +1,6 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import styles from '../styles/Index.module.css'
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Alarm from '../components/Alarm';
+import Alarm from '../components/Alarm/index';
 import useTranslation from 'next-translate/useTranslation';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -22,6 +19,9 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
       </Head>
       <Alarm />
     </>
