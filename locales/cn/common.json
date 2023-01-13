@@ -39,5 +39,9 @@
     "thu": "周四",
     "fri": "星期五",
     "sat": "周六",
-    "sun": "星期日"
+    "sun": "星期日",
+    "upcoming_alarms": "即将到来的警报",
+    "specific_time": "设置指定时间的闹钟",
+    "alarm_history": "报警历史",
+    "export": "导出为 CSV"
 }

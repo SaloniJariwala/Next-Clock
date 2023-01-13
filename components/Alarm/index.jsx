@@ -62,17 +62,17 @@ const Alarm = () => {
 
     const handleSetAlarm = () => {
         setShowSetAlarm(true);
-    }
+    };
 
     const handleCloseAlarm = () => {
         resetForm();
         setShowSetAlarm(false);
         setCloseRepeat(true);
-    }
+    };
 
     const closeRingModal = () => {
         setShowRingModal(false);
-    }
+    };
 
     const resetForm = () => {
         const countryValue = countryData.filter((item) => item.countryName === getCurrentCountry())[0];
@@ -85,7 +85,7 @@ const Alarm = () => {
         methods.setValue('alarmNote', '');
         methods.setValue('isRepeat', false);
         methods.setValue('repeatDays', []);
-    }
+    };
 
     const storeAlarm = (alarmDetails, type = "") => {
         let newAlarm;
@@ -281,7 +281,7 @@ const Alarm = () => {
             <div className={styles.divider}>
                 <Divider style={{ width: '70%', minWidth: '70%' }} orientation="center" />
             </div>
-                <span className={styles.label}>Upcoming Alarms</span>
+                <span className={styles.label}>{i18n.t('upcoming_alarms')}</span>
             <div className={styles.alarmList}>
                 {UpcomingAlarms?.map((item) => (
                     <UpcomingAlarm
@@ -298,12 +298,12 @@ const Alarm = () => {
             <div className={styles.divider}>
                 <Divider style={{ width: '70%', minWidth: '70%' }} orientation="center" />
             </div>
-            <span className={styles.label}>Set an alarm for the specified time</span>
+            <span className={styles.label}>{i18n.t('specific_time')}</span>
             <SpecificAlarmSection storeAlarm={storeAlarm} callToAlarm={callToAlarm} />
             <div className={styles.divider}>
                 <Divider style={{ width: '70%', minWidth: '70%' }} orientation="center" />
             </div>
-            <span className={styles.label}>Alarm History</span>
+            <span className={styles.label}>{i18n.t('alarm_history')}</span>
             <AlarmHistory
                 pastAlarms={pastAlarms}
                 deleteAlarm={deleteAlarm}

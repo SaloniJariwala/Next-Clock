@@ -15,6 +15,7 @@ import CSV from "../../public/Assets/svg/csv.svg";
 import {CSVLink} from "react-csv";
 import {getTime} from "../../utils/getTime";
 import {audioData} from "../../data/audios";
+import i18n from '../../i18n';
 
 const AlarmHistory = ({
     pastAlarms,
@@ -138,7 +139,7 @@ const AlarmHistory = ({
             <CSVLink data={csvData} style={{ textDecoration: 'none' }}>
                 <button className={styles.exportBtn}>
                     <Image src={CSV} alt={'CSV'} height={40} width={40} />
-                    Export to CSV
+                    {i18n.t('export')}
                 </button>
             </CSVLink>
         </div>

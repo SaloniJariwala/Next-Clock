@@ -38,5 +38,9 @@
     "thu": "jueves",
     "fri": "Vie",
     "sat": "sábado",
-    "sun": "Sol"
+    "sun": "Sol",
+    "upcoming_alarms": "Próximas alarmas",
+    "specific_time": "Establecer una alarma para el tiempo especificado",
+    "alarm_history": "Historial de alarmas",
+    "export": "Exportar a CSV"
 }

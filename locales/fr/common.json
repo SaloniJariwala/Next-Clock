@@ -39,5 +39,9 @@
     "thu": "jeu",
     "fri": "Ven",
     "sat": "saturé",
-    "sun": "Soleil"
+    "sun": "Soleil",
+    "upcoming_alarms": "Alarmes à venir",
+    "specific_time": "Définir une alarme pour l'heure spécifiée",
+    "alarm_history": "Historique des alarmes",
+    "export": "Exporter vers CSV"
 }
