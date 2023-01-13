@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { HiLanguage } from "react-icons/hi2";
 import { getLabelName } from '../utils/getLabelName';
+import i18n from '../i18n';
 
 const Header = () => {
 
@@ -41,7 +42,7 @@ const Header = () => {
                             />
                         </div>
                         <button className={styles.languageBtn} onClick={() => setClicked(!clicked)}>
-                            <HiLanguage style={{ height: 20, width: 20 }} />
+                            {i18n.t('language')}{' '}<HiLanguage style={{ height: 20, width: 20 }} />
                         </button>
                         {clicked && (
                             <div className={styles.optionsOuter}>

@@ -27,22 +27,12 @@
 }
 
 .copyright {
-    width: 275px;
-    height: 17px;
-
-    /* Body Small */
-
+    display: inline;
     font-family: 'Century Gothic';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
-
     opacity: 0.5;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 2;
-    flex-grow: 0;
 }
+

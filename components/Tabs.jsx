@@ -61,7 +61,7 @@ const Tabs = () => {
                 <div className={styles.icon}>
                     <Image alt="timer" src={Timer} width={30} height={30} />
                 </div>
-                <span className={styles.tabText}>Timer</span>
+                <span className={styles.tabText}>{i18n.t('timer')}</span>
             </div>
             <div
                 className={styles.tabs}
@@ -70,7 +70,7 @@ const Tabs = () => {
                 <div className={styles.icon}>
                     <Image alt="stopwatch" src={Stopwatch} width={30} height={30} />
                 </div>
-                <span className={styles.tabText}>Stopwatch</span>
+                <span className={styles.tabText}>{i18n.t('stopwatch')}</span>
             </div>
             <div
                 className={styles.tabs}
@@ -79,7 +79,7 @@ const Tabs = () => {
                 <div className={styles.icon}>
                     <Image alt="time" src={Time} width={30} height={30} />
                 </div>
-                <span className={styles.tabText}>Time</span>
+                <span className={styles.tabText}>{i18n.t('time')}</span>
             </div>
             <div
                 className={styles.tabs}
@@ -89,7 +89,7 @@ const Tabs = () => {
                 <div className={styles.icon}>
                     <Image alt="reminder" src={Reminder} width={30} height={30} />
                 </div>
-                <span className={styles.tabText}>Reminder</span>
+                <span className={styles.tabText}>{i18n.t('reminder')}</span>
             </div>
         </div>
     )

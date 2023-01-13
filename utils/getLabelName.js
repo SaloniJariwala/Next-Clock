@@ -1,27 +1,29 @@
+import i18n from "../i18n";
+
 export const getLabelName = (locale) => {
     switch (locale) {
         case 'en':
-            return 'English';
+            return i18n.t('english');
             break;
 
         case 'cn':
-            return 'Chinese';
+            return i18n.t('chinese');
             break;
 
         case 'jp':
-            return 'Japanese';
+            return i18n.t('japanese');
             break;
 
         case 'fr':
-            return 'French';
+            return i18n.t('french');
             break;
 
         case 'sp':
-            return "Spanish";
+            return i18n.t('spanish');
             break;
 
         case 'hi':
-            return "Hindi";
+            return i18n.t('hindi');
             break;
 
         default:

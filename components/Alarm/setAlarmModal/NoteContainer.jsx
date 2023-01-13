@@ -1,16 +1,15 @@
 import React from 'react';
-import useTranslation from 'next-translate/useTranslation';
 import styles from "../../../styles/Alarm.module.css";
 import { Controller } from 'react-hook-form';
+import i18n from '../../../i18n';
 
 const NoteContainer = ({ methods }) => {
 
-    const { t } = useTranslation();
     const { control } = methods;
 
     return (
         <div>
-            <span className={styles.inputTitle}>{t('common:alarm_note')}</span>
+            <span className={styles.inputTitle}>{i18n.t('alarm_note')}</span>
             <Controller
                 control={control}
                 name="alarmNote"
@@ -18,7 +17,7 @@ const NoteContainer = ({ methods }) => {
                     <textarea
                         id="alarm-note"
                         className="form-control"
-                        placeholder={t('common:enter_alarm_note')}
+                        placeholder={i18n.t('enter_alarm_note')}
                         onChange={onChange}
                         value={value}
                         style={{ color: '#112466' }}

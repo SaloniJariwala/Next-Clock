@@ -4,37 +4,50 @@ import styles from "../../styles/Alarm.module.css";
 import { Divider } from 'antd';
 import UpcomingAlarm from './UpcomingAlarm';
 import SetAlarmModal from './setAlarmModal';
-import useTranslation from 'next-translate/useTranslation';
+import i18n from '../../i18n';
 import { v4 as uuidv4 } from "uuid";
 import { notifyUser } from "../../utils/notification";
 import RingAlarmModal from './ringAlarmModal';
+import { useForm } from 'react-hook-form';
+import { getCurrentCountry } from '../../utils/getCurrentCountry';
+import { countryData } from '../../data/countries';
+import { audioData } from '../../data/audios';
+import SpecificAlarmSection from "./SpecificAlarmSection";
+import AlarmHistory from "./AlarmHistory";
+import UserManual from "./userManual";
 
 const Alarm = () => {
 
     const indexAudioRef = useRef();
-    const { t } = useTranslation();
+    const methods = useForm();
 
     const [isEdit, setIsEdit] = useState(false);
     const [flag, setFlag] = useState(false);
-    const [upcomingAlarms, setUpcomingAlarms] = useState();
     const [showSetAlarm, setShowSetAlarm] = useState(false);
     const [closeRepeat, setCloseRepeat] = useState(false);
     const [currentAlarm, setCurrentAlarm] = useState();
     const [showRingModal, setShowRingModal] = useState(false);
     const [alarmAudio, setAlarmAudio] = useState();
     const [volume, setVolume] = useState(50);
+    const [selectedAlarm, setSelectedAlarm] = useState();
+    const [UpcomingAlarms, setUpcomingAlarms] = useState([]);
+    const [pastAlarms, setPastAlarms] = useState([]);
+    const [alarmPause, setAlarmPause] = useState(false);
 
     useEffect(() => {
-        const allAlarms = JSON.parse(localStorage.getItem('Alarms')) || [];
-        const upcoming = allAlarms.filter(
-            (item) => item.alarmTimestamp > Date.now()
-        );
-        setUpcomingAlarms(upcoming);
+        getAlarms();
+        callToAlarm();
+    }, []);
+
+    useEffect(() => {
+        const alarms = JSON.parse(localStorage.getItem('Alarms'));
+        setUpcomingAlarms(alarms?.filter((item) => item.alarmTimestamp > Date.now()));
+        setPastAlarms(alarms?.filter((item) => item.alarmTimestamp < Date.now()));
     }, [flag]);
 
     const play = () => {
         indexAudioRef.current?.play();
-        indexAudioRef.current.volume = parseFloat(volume / 100);
+        // indexAudioRef.current?.volume = parseFloat(volume / 100);
         indexAudioRef.current.loop = true;
     };
 
@@ -43,21 +56,35 @@ const Alarm = () => {
         setFlag(!flag);
     };
 
-    useEffect(() => {
-        indexAudioRef.current.volume = parseFloat(volume / 100);
-    }, [volume]);
+    // useEffect(() => {
+    //     indexAudioRef.current.volume = volume / 100;
+    // }, [volume]);
 
     const handleSetAlarm = () => {
         setShowSetAlarm(true);
     }
 
     const handleCloseAlarm = () => {
+        resetForm();
         setShowSetAlarm(false);
         setCloseRepeat(true);
     }
 
     const closeRingModal = () => {
         setShowRingModal(false);
+    }
+
+    const resetForm = () => {
+        const countryValue = countryData.filter((item) => item.countryName === getCurrentCountry())[0];
+        methods.setValue('country', JSON.stringify(countryValue));
+        methods.setValue('hour', '0');
+        methods.setValue('minute', '0');
+        methods.setValue('volume', 50);
+        methods.setValue('sound', 'selected');
+        methods.setValue('alarmTitle', '');
+        methods.setValue('alarmNote', '');
+        methods.setValue('isRepeat', false);
+        methods.setValue('repeatDays', []);
     }
 
     const storeAlarm = (alarmDetails, type = "") => {
@@ -69,18 +96,18 @@ const Alarm = () => {
                 timeoutId: "",
                 countryTimestamp: alarmDetails?.countryTime.getTime(),
                 alarmTimestamp: alarmDetails?.alarmDate?.getTime(),
-                orgTimestamp: alarmDetails?.alarmDate?.getTime(),
+                orgTimestamp: alarmDetails?.originalAlarm?.getTime(),
+                startedTime: alarmDetails?.startedTime?.getTime(),
                 isAlarmPause: false,
-                alarmDetails: alarmDetails?.alarmRepeat,
                 title: alarmDetails?.alarmTitle,
                 note: alarmDetails?.alarmNote,
                 country: alarmDetails?.country,
                 alarmTune: alarmDetails?.alarmTune,
                 alarmVolume: alarmDetails?.alarmVolume,
             };
-            const isRepeatAlarm = "isRepeat" in alarmDetails;
+            const isRepeatAlarm = "alarmRepeat" in alarmDetails;
             if (isRepeatAlarm) {
-                newAlarm = { ...newAlarm, isRepeat: alarmDetails?.isRepeat };
+                newAlarm = { ...newAlarm, alarmRepeat: alarmDetails?.alarmRepeat };
             }
         } else {
             newAlarm = alarmDetails;
@@ -109,7 +136,11 @@ const Alarm = () => {
         } else {
             nearestAlarm = newList[0];
         }
-        setAlarmAudio(nearestAlarm?.alarmTune);
+        audioData.forEach((item) => {
+            if (item.audioId === nearestAlarm?.alarmTune) {
+                setAlarmAudio(item.track);
+            }
+        });
         setVolume(nearestAlarm?.alarmVolume);
         const currTimestamp = Date.now();
         let diff;
@@ -133,6 +164,14 @@ const Alarm = () => {
         }
     };
 
+    const deleteAlarm = (alarmId, timeoutId) => {
+        let newList = JSON.parse(localStorage.getItem("Alarms")) || [];
+        let delAlarm = newList.filter((item) => item.alarmId !== alarmId);
+        clearTimeout(timeoutId);
+        localStorage.setItem("Alarms", JSON.stringify(delAlarm));
+        setFlag(!flag);
+    };
+
     const handleEdit = (alarmId) => {
         setIsEdit(true);
         const allAlarms = JSON.parse(localStorage.getItem("Alarms")) || [];
@@ -151,10 +190,9 @@ const Alarm = () => {
         methods.setValue("volume", oldAlarm[0].alarmVolume);
         methods.setValue("alarmTitle", oldAlarm[0].title);
         methods.setValue("alarmNote", oldAlarm[0].note);
-        methods.setValue("repeat", oldAlarm[0].alarmRepeat);
         if (oldAlarm[0].alarmRepeat) {
             methods.setValue("isRepeat", true);
-            methods.setValue("repeat", oldAlarm[0].alarmRepeat);
+            methods.setValue("repeatDays", oldAlarm[0].alarmRepeat);
         } else {
             methods.setValue("isRepeat", false);
         }
@@ -171,6 +209,7 @@ const Alarm = () => {
             timeoutId: selectedAlarm?.timeoutId,
             alarmTimestamp: alarmDetails?.alarmDate?.getTime(),
             orgTimestamp: alarmDetails?.alarmDate?.getTime(),
+            startedTime: alarmDetails?.startedTime.getTime(),
             isAlarmPause: false,
             alarmRepeat: alarmDetails?.alarmRepeat,
             title: alarmDetails?.alarmTitle,
@@ -179,10 +218,6 @@ const Alarm = () => {
             alarmTune: alarmDetails?.alarmTune,
             alarmVolume: alarmDetails?.alarmVolume,
         };
-        const isSnooze = "snoozeTime" in alarmDetails;
-        if (isSnooze) {
-            editedAlarm = { ...editedAlarm, snoozeTime: alarmDetails?.snoozeTime };
-        }
         const isRepeatAlarm = "alarmRepeat" in alarmDetails;
         if (isRepeatAlarm) {
             editedAlarm = { ...editedAlarm, alarmRepeat: alarmDetails?.alarmRepeat };
@@ -194,27 +229,96 @@ const Alarm = () => {
         setIsEdit(false);
     };
 
+    const getAlarms = () => {
+        setFlag(!flag);
+    };
+
+    const handlePauseAlarm = (alarm) => {
+        if (!alarmPause) {
+            setAlarmPause(true);
+            clearTimeout(alarm.timeoutId);
+            const allAlarms = JSON.parse(localStorage.getItem("Alarms"));
+            allAlarms.forEach((item) => {
+                if (item.alarmTimestamp === alarm.alarmTimestamp) {
+                    item.isAlarmPause = true;
+                }
+            });
+            localStorage.setItem("Alarms", JSON.stringify(allAlarms));
+            setFlag(!flag);
+        } else {
+            setAlarmPause(false);
+            const diff = alarm.alarmTimestamp - Date.now();
+            if (diff >= 0) {
+                const id = setTimeout(() => {
+                    notifyUser(alarm.title, alarm.note);
+                    play();
+                    setFlag(!flag);
+                }, diff);
+                const allAlarms = JSON.parse(localStorage.getItem("Alarms"));
+                allAlarms.forEach((item) => {
+                    if (item.alarmTimestamp === alarm.alarmTimestamp) {
+                        item.timeoutId = id;
+                        item.isAlarmPause = false;
+                    }
+                });
+                localStorage.setItem("Alarms", JSON.stringify(allAlarms));
+            }
+            getAlarms();
+        }
+    };
+
     return (
-        <>
+        <div className={styles.mostOuter}>
             <div className={styles.clock}>
                 <Clock />
                 <button
                     className={styles.setBtn}
                     onClick={handleSetAlarm}
                 >
-                    {t('common:set_alarm')}
+                    {i18n.t('set_alarm')}
                 </button>
             </div>
             <div className={styles.divider}>
                 <Divider style={{ width: '70%', minWidth: '70%' }} orientation="center" />
             </div>
+                <span className={styles.label}>Upcoming Alarms</span>
             <div className={styles.alarmList}>
-                <UpcomingAlarm alarmList={upcomingAlarms} />
+                {UpcomingAlarms?.map((item) => (
+                    <UpcomingAlarm
+                        item={item}
+                        key={item.alarmId}
+                        deleteAlarm={deleteAlarm}
+                        handleEdit={handleEdit}
+                        handlePauseAlarm={handlePauseAlarm}
+                        getAlarms={getAlarms}
+                        play={play}
+                    />
+                ))}
             </div>
+            <div className={styles.divider}>
+                <Divider style={{ width: '70%', minWidth: '70%' }} orientation="center" />
+            </div>
+            <span className={styles.label}>Set an alarm for the specified time</span>
+            <SpecificAlarmSection storeAlarm={storeAlarm} callToAlarm={callToAlarm} />
+            <div className={styles.divider}>
+                <Divider style={{ width: '70%', minWidth: '70%' }} orientation="center" />
+            </div>
+            <span className={styles.label}>Alarm History</span>
+            <AlarmHistory
+                pastAlarms={pastAlarms}
+                deleteAlarm={deleteAlarm}
+                handleEdit={handleEdit}
+                handlePauseAlarm={handlePauseAlarm}
+            />
+            <div className={styles.divider}>
+                <Divider style={{ width: '70%', minWidth: '70%' }} orientation="center" />
+            </div>
+            <UserManual />
             <audio src={alarmAudio} ref={indexAudioRef} />
             <SetAlarmModal
                 show={showSetAlarm}
                 close={handleCloseAlarm}
+                methods={methods}
                 closeRepeat={closeRepeat}
                 isEdit={isEdit}
                 storeAlarm={storeAlarm}
@@ -226,9 +330,9 @@ const Alarm = () => {
                 close={closeRingModal}
                 currentAlarm={currentAlarm}
                 pause={pause}
-                key={'activated'}
+                callToAlarm={callToAlarm}
             />
-        </>
+        </div>
     )
 }
 

@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
-import useTranslation from "next-translate/useTranslation";
 import styles from "../../../styles/Alarm.module.css";
+import i18n from '../../../i18n';
 
 const HourContainer = ({ methods, isEdit }) => {
 
     const { control } = methods;
-    const { t } = useTranslation();
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
@@ -36,7 +35,7 @@ const HourContainer = ({ methods, isEdit }) => {
 
     return (
         <div>
-            <span className={styles.inputTitle}>{t('common:hours')}</span>
+            <span className={styles.inputTitle}>{i18n.t('hours')}</span>
             <Controller
                 control={control}
                 name="hour"

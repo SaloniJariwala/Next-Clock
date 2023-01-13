@@ -12,6 +12,13 @@
     align-items: center;
 }
 
+.mostOuter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*align-items: center;*/
+}
+
 .alarmList {
     margin: 20px 150px;
     display: flex;
@@ -25,8 +32,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: fit-content;
-    height: fit-content;
+    width: 250px;
+    height: 250px;
     margin-bottom: 1.5rem;
     border: 1px solid rgb(235, 235, 235);
     padding: 30px 60px;
@@ -40,6 +47,30 @@
     border-radius: 50%;
     border: 1px solid rgb(235, 235, 235);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.outerSetting {
+    position: relative;
+}
+
+.editBtn {
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid rgb(235, 235, 235);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: absolute;
+    bottom: 19px;
+    left: -27px;
+}
+
+.playPauseBtn {
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid rgb(235, 235, 235);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: absolute;
+    bottom: -10px;
+    left: -28px;
 }
 
 .btnbar {
@@ -103,13 +134,14 @@
 
 .titleOuter {
     display: flex;
-    /* justify-content: center; */
-    align-items: center;
+     justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .playBtn {
     border: unset;
     background-color: white;
+    margin-left: 5px;
 }
 
 .uploadBtn {
@@ -211,4 +243,115 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.specificList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.specificBar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 70%;
+    margin: 20px 0;
+}
+
+.specificBtn {
+    background-color: white;
+    color: #112466;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    box-sizing: border-box;
+    padding: 20px 15px;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 25px;
+}
+
+.label {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    text-align: center;
+    text-shadow: -5px -5px 10px #FAFBFF, 5px 5px 10px #A6ABBD;
+    color: #112466;
+    margin: 10px auto;
+}
+
+.table {
+    width: 70%;
+    margin: 20px auto;
+    background: linear-gradient(317.7deg, rgba(0, 0, 0, 0.4) 0%, rgba(255, 255, 255, 0.4) 105.18%), white;
+    background-blend-mode: soft-light, normal;
+
+    /* White Border */
+
+    /*border: 1px solid rgba(255, 255, 255, 0.4);*/
+    border: 1px solid #E7EBF0;
+    /* Outer Shadow 3 */
+
+    /*box-shadow: -10px -10px 20px #FAFBFF, 10px 10px 20px #E7EBF0;*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+
+.table td {
+    text-align: center;
+}
+
+.table th {
+    text-align: center;
+}
+
+.exportBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 14px 2px 10px;
+    margin-top: 20px;
+    color: #112466;
+    width: fit-content;
+    background-color: white;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+}
+
+.historyOuter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.userManual {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.section {
+    margin: 30px 0;
+}
+
+.que {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 140%;
+    color: #112466;
+    /*margin-bottom: 20px;*/
+}
+
+.para {
+    margin-top: 20px;
+    text-align: justify;
 }
