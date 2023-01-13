@@ -1,43 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Checkbox, Switch } from 'antd';
-import useTranslation from 'next-translate/useTranslation';
+import i18n from '../../../i18n';
 import styles from "../../../styles/Alarm.module.css";
 import { Controller } from 'react-hook-form';
 
-const options = [
-    {
-        label: "M",
-        value: "Monday"
-    },
-    {
-        label: "T",
-        value: "Tuesday"
-    },
-    {
-        label: "W",
-        value: "Wednesday"
-    },
-    {
-        label: "T",
-        value: "Thursday"
-    },
-    {
-        label: "F",
-        value: "Friday"
-    },
-    {
-        label: "S",
-        value: "Saturday"
-    },
-    {
-        label: "S",
-        value: "Sunday"
-    }
-];
-
 const RepeatContainer = ({ methods, closeRepeat, isEdit }) => {
 
-    const { t } = useTranslation();
     const { control } = methods;
 
     const [isRepeat, setIsRepeat] = useState(false);
@@ -57,7 +25,7 @@ const RepeatContainer = ({ methods, closeRepeat, isEdit }) => {
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
-                <span className={styles.inputTitle} style={{ marginRight: 10 }}>{t('common:repeat')}</span>{' '}
+                <span className={styles.inputTitle} style={{ marginRight: 10 }}>{i18n.t('repeat')}</span>{' '}
                 <Controller
                     control={control}
                     name="isRepeat"
@@ -76,13 +44,21 @@ const RepeatContainer = ({ methods, closeRepeat, isEdit }) => {
                     name="repeatDays"
                     render={({ field: { onChange, value } }) => (
                         <Checkbox.Group
-                            options={options}
+                            // options={options}
                             // defaultValue={['Apple']}
                             onChange={onChange}
                             value={value}
                             className={styles.antCheckboxWrapper}
                             style={{ color: '#112466' }}
-                        />
+                        >
+                            <Checkbox value={1}>{i18n.t('mon')}</Checkbox>
+                            <Checkbox value={2}>{i18n.t('tue')}</Checkbox>
+                            <Checkbox value={3}>{i18n.t('wed')}</Checkbox>
+                            <Checkbox value={4}>{i18n.t('thu')}</Checkbox>
+                            <Checkbox value={5}>{i18n.t('fri')}</Checkbox>
+                            <Checkbox value={6}>{i18n.t('sat')}</Checkbox>
+                            <Checkbox value={7}>{i18n.t('sun')}</Checkbox>
+                        </Checkbox.Group>
                     )}
                 />
             )}

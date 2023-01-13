@@ -1,6 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
 import styles from "../styles/Time.module.css";
+import i18n from '../i18n';
 
 const Clock = () => {
 
@@ -27,7 +28,7 @@ const Clock = () => {
 
     return (
         <>
-            <p className={styles.title}>{t("common:time_now")}</p>
+            <p className={styles.title}>{i18n.t('time_now')}</p>
             <div className={styles.display}>
                 {currentTime}
             </div>

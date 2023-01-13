@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { Controller } from "react-hook-form";
-import useTranslation from "next-translate/useTranslation";
+import i18n from '../../../i18n';
 import styles from "../../../styles/Alarm.module.css";
 
 const ZoneContainer = ({ methods, isEdit }) => {
 
     const { control } = methods;
-    const { t } = useTranslation();
 
     useEffect(() => {
         if (!isEdit) {
@@ -17,7 +16,7 @@ const ZoneContainer = ({ methods, isEdit }) => {
 
     return (
         <div>
-            <span className={styles.inputTitle}>{t('common:ampm')}</span>
+            <span className={styles.inputTitle}>{i18n.t('ampm')}</span>
             <Controller
                 control={control}
                 name="ampm"

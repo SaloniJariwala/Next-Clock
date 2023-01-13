@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from "../../../styles/Alarm.module.css";
 import { MdPlayCircleOutline, MdPauseCircleOutline } from "react-icons/md";
-import { IoCloudUploadOutline } from "react-icons/io5";
-import useTranslation from 'next-translate/useTranslation';
+// import { IoCloudUploadOutline } from "react-icons/io5";
+import i18n from '../../../i18n';
 import { audioData } from '../../../data/audios';
 import { Controller } from 'react-hook-form';
-import { Slider } from 'antd';
+import { Slider, Button } from 'antd';
+import { useRouter } from 'next/router';
+import {getLanguageLabel} from '../../../utils/getAlarmLabel';
 
 const SoundContainer = ({
     methods,
@@ -13,7 +15,6 @@ const SoundContainer = ({
     selectedAlarm
 }) => {
 
-    const { t } = useTranslation();
     const audioRef = useRef();
     const { control } = methods;
 
@@ -22,9 +23,15 @@ const SoundContainer = ({
     const [volume, setVolume] = useState(50);
     const [options, setOptions] = useState([]);
 
+    const pathname = useRouter();
+
     const handleChange = (event) => {
-        setAudioName(event.target.value);
         methods.setValue('sound', event.target.value);
+        audioData.forEach((item) => {
+            if (item.audioId === event.target.value) {
+                setAudioName(item.track);
+            }
+        })
     };
 
     useEffect(() => {
@@ -44,9 +51,9 @@ const SoundContainer = ({
 
     const play = () => {
         audioRef.current.play();
-        audioRef.current.volume = parseFloat(volume / 100);
+        // audioRef.current.volume = parseFloat(volume / 100);
         audioRef.current.loop = true;
-    }
+    };
 
     const pause = () => {
         audioRef.current.pause();
@@ -55,7 +62,7 @@ const SoundContainer = ({
     const handleVolumeChange = (value) => {
         methods.setValue('volume', value);
         setVolume(value);
-    }
+    };
 
     const handleButtonClick = () => {
         if (audioName === 'selected') {
@@ -70,30 +77,19 @@ const SoundContainer = ({
         }
     };
 
-    const handleFileChange = (event) => {
-        const audio = URL.createObjectURL(event.target.files[0]);
-        const newAudio = {
-            audioTitle: event.target.files[0].name,
-            track: audio
-        }
-        const array = options;
-        array.push(newAudio);
-        setOptions(array);
-        methods.setValue('sound', audio);
-        setAudioName(audio);
-    };
-
     return (
         <div className={styles.outerContainer}>
             <div style={{ width: '100%' }}>
                 <div className={styles.titleOuter}>
-                    <span className={styles.inputTitle}>{t('common:sound')}</span>
-                    <button
+                    <span className={styles.inputTitle}>{i18n.t('sound')}</span>
+                    <Button
                         className={styles.playBtn}
+                        style={{ padding: 'unset', fontSize: 'unset', height: 'unset' }}
                         onClick={handleButtonClick}
+
                     >
                         {audioPlay ? <MdPlayCircleOutline fill='#112466' /> : <MdPauseCircleOutline fill='#112466' />}
-                    </button>
+                    </Button>
                 </div>
                 <audio src={audioName} ref={audioRef} />
                 <div className={styles.audioContainer}>
@@ -110,44 +106,24 @@ const SoundContainer = ({
                                     onChange={(event) => handleChange(event)}
                                     style={{ color: '#112466' }}
                                 >
-                                    <option value={'selected'}>--{t('select_sound')}--</option>
+                                    <option value={'selected'}>--{i18n.t('select_sound')}--</option>
                                     {audioData?.map((item, index) => (
                                         <option
                                             key={index}
-                                            value={item.track}
+                                            value={item.audioId}
                                         >
-                                            {item.audioTitle}
+                                            {/* {item.audioTitle} */}
+                                            {getLanguageLabel(pathname.locale, item)}
                                         </option>
                                     ))}
                                 </select>
                             )}
                         />
                     </div>
-                    <button
-                        className={styles.uploadBtn}
-                        style={{ marginRight: 20 }}
-                    >
-                        <IoCloudUploadOutline
-                            fill='#112466'
-                            style={{ height: '1.5em', width: '1.5em' }}
-                        />
-                        <input
-                            type={"file"}
-                            accept={"audio/*"}
-                            onChange={(event) => handleFileChange(event)}
-                            style={{
-                                cursor: 'pointer',
-                                position: 'absolute',
-                                left: 0,
-                                top: 0,
-                                opacity: 0
-                            }}
-                        />
-                    </button>
                 </div>
             </div>
             <div style={{ width: '100%' }}>
-                <span className={styles.inputTitle}>{t('common:volume')}</span>
+                <span className={styles.inputTitle}>{i18n.t('volume')}</span>
                 <div style={{ width: '100%' }} className={styles.uploadBtn}>
                     <Controller
                         control={control}
