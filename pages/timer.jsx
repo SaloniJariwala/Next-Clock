@@ -2,9 +2,10 @@ import Head from 'next/head';
 import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Timer from '../components/Timer';
 import styles from '../styles/Index.module.css';
 
-const Timer = () => {
+const TimerIndex = ({data}) => {
     return (
         <>
             <Head>
@@ -16,9 +17,21 @@ const Timer = () => {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
                 <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet" />
             </Head>
-            
-        </>
+                <Timer data={data}/>
+             </>
     )
 }
 
-export default Timer;
+
+export async function getServerSideProps(){
+    const data = `Misk pände pålig respektive nojagt töng. Lavis jass geonas. Pren platågen, kron. Jölarad trektigt semobelt för pront, det soment. Foliga geofott, hehen och jadosa. 
+          Saskap bejörade polyr. Vide loskade, fast plaspeheling till maktig alltså ara. Jögen tetranar. Arad prerade plapovis. Spena sonde osat jaskapet i plajöliga. 
+          Falingar intrarerock. Hexarer kvasilig diren nyr. Febel agisamma. Gången fyhyr. Lapossade multidade, din ifall rerorad.`
+    return{
+      props:{
+        data
+      }
+    }
+  }
+
+export default TimerIndex;

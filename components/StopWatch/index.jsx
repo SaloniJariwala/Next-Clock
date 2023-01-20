@@ -6,23 +6,13 @@ import BtnStopWatch from "./BtnStopWatch";
 import DisplayStopWatch from "./DisplayStopWatch";
 import { BiExport } from "react-icons/bi";
 
-const StopWatch = () => {
+const StopWatch = ({data}) => {
   const [isInaterval, setIsIntaerVal] = useState();
   const [status, setStatus] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [lapTime, setlapTime] = useState([]);
   const [flag, setFlag] = useState(false);
   const [csvData, setCsvData] = useState([]);
-  const [stopWatchData,setStopWatchData]=useState();
-
-
-let data;
-  let result = getData();
- result.then(function(item) {
-  data=item;
-  setStopWatchData(data)
- })
-
 
   const [time, setTime] = useState({
     lastId: 0,
@@ -168,21 +158,13 @@ let data;
           </button>
         </CSVLink>
 
-      <div className={styles.stopwatch_text}>{stopWatchData}</div>
+      <div className={styles.stopwatch_text}>{data}</div>
       </div>
 
     </div>
   );
 };
 
-async function getData(){
-  return new Promise((resolve, reject) => {
- 
-    const data = `Misk pände pålig respektive nojagt töng. Lavis jass geonas. Pren platågen, kron. Jölarad trektigt semobelt för pront, det soment. Foliga geofott, hehen och jadosa. 
-    Saskap bejörade polyr. Vide loskade, fast plaspeheling till maktig alltså ara. Jögen tetranar. Arad prerade plapovis. Spena sonde osat jaskapet i plajöliga. 
-    Falingar intrarerock. Hexarer kvasilig diren nyr. Febel agisamma. Gången fyhyr. Lapossade multidade, din ifall rerorad.`
-    resolve(data);
-   });
-}
+
 
 export default StopWatch;

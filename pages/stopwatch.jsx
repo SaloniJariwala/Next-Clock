@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import StopWatch from '../components/StopWatch';
 import styles from '../styles/Index.module.css';
 
-const Stopwatch = () => {
+const Stopwatch = ({data}) => {
     return (
         <>
             <Head>
@@ -17,9 +17,21 @@ const Stopwatch = () => {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
                 <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet" />
             </Head>
-                <StopWatch/>
+                <StopWatch data={data}/>
         </>
     )
 }
+
+
+export async function getServerSideProps(){
+    const data = `Misk pände pålig respektive nojagt töng. Lavis jass geonas. Pren platågen, kron. Jölarad trektigt semobelt för pront, det soment. Foliga geofott, hehen och jadosa. 
+          Saskap bejörade polyr. Vide loskade, fast plaspeheling till maktig alltså ara. Jögen tetranar. Arad prerade plapovis. Spena sonde osat jaskapet i plajöliga. 
+          Falingar intrarerock. Hexarer kvasilig diren nyr. Febel agisamma. Gången fyhyr. Lapossade multidade, din ifall rerorad.`
+    return{
+      props:{
+        data
+      }
+    }
+  }
 
 export default Stopwatch;
