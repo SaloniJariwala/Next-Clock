@@ -4,20 +4,21 @@ import Image from "next/image";
 import {specificTimeData} from "../../data/specificTimes";
 import styles from "../../styles/Alarm.module.css";
 import Ring from "../../public/Assets/svg/reminder.svg";
-import {getLocalCountry} from "../../utils/getLocalCountry";
 import { v4 as uuidv4 } from "uuid";
+import {getCountryNameFromTimeZone} from "../../utils/getCountryNameFromTimeZone";
 
-const SpecificAlarmSection = ({ storeAlarm, callToAlarm }) => {
+const SpecificAlarmSection = ({ storeAlarm, callToAlarm, countryData }) => {
 
-    const handleSpecificTime = (time) => {
+    const handleSpecificTime = async (time) => {
         if (time < Date.now()) {
             time = time + 86400000;
         }
+        const countryName = await getCountryNameFromTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone);
         const alarmTime = new Date(time);
         const payload = {
             alarmId: uuidv4(),
             timeoutId: "",
-            country: getLocalCountry(),
+            country: countryData?.find((item) => item.name === countryName)._id,
             alarmTimestamp: time,
             orgTimestamp: time,
             startedTime: Date.now(),

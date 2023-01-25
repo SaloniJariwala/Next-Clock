@@ -43,5 +43,13 @@
     "upcoming_alarms": "Upcoming Alarms",
     "specific_time": "Set an alarm for the specified time",
     "alarm_history": "Alarm History",
-    "export": "Export to CSV"
+    "export": "Export to CSV",
+    "timezone": "Timezone",
+    "select_timezone": "Select Timezone",
+    "add_timezone": "Add Timezone",
+    "edit_timezone": "Edit Timezone",
+    "delete_title": "Delete Alarm",
+    "delete_desc": "Are you sure to delete this timezone from the list?",
+    "add": "Add",
+    "cancel": "Cancel"
 }

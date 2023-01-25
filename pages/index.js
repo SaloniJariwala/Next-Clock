@@ -1,13 +1,9 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
 import Alarm from '../components/Alarm/index';
-import useTranslation from 'next-translate/useTranslation';
+import axios from "axios";
+import {GET_COUNTRY_API, GET_TIMEZONE_BY_COUNTRY} from "../constant/endpoints";
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
-
-  const { t } = useTranslation();
+const Home = ({ countryData, timezoneData }) => {
 
   return (
     <>
@@ -23,7 +19,37 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
         <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
       </Head>
-      <Alarm />
+      <Alarm countryData={countryData} timezoneData={timezoneData} />
     </>
   )
+};
+
+export async function getServerSideProps () {
+
+  let countryData, timezoneData;
+
+  await axios.get(GET_COUNTRY_API)
+      .then((response) => {
+        countryData = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    await axios.get(GET_TIMEZONE_BY_COUNTRY)
+        .then((response) => {
+            timezoneData = response.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+  return {
+    props: {
+        countryData,
+        timezoneData
+    }
+  }
 }
+
+export default Home;

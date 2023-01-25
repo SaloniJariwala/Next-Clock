@@ -42,5 +42,13 @@
     "upcoming_alarms": "Próximas alarmas",
     "specific_time": "Establecer una alarma para el tiempo especificado",
     "alarm_history": "Historial de alarmas",
-    "export": "Exportar a CSV"
+    "export": "Exportar a CSV",
+    "timezone": "Zona horaria",
+    "select_timezone": "Selecciona la zona horaria",
+    "add_timezone": "Añadir zona horaria",
+    "edit_timezone": "Editar zona horaria",
+    "delete_title": "Eliminar alarma",
+    "delete_desc": "Estás seguro de eliminar esta zona horaria de la lista?",
+    "add": "Agregar",
+    "cancel": "Cancelar"
 }

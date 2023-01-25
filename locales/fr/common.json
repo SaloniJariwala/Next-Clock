@@ -43,5 +43,13 @@
     "upcoming_alarms": "Alarmes à venir",
     "specific_time": "Définir une alarme pour l'heure spécifiée",
     "alarm_history": "Historique des alarmes",
-    "export": "Exporter vers CSV"
+    "export": "Exporter vers CSV",
+    "timezone": "Fuseau horaire",
+    "select_timezone": "Sélectionnez le fuseau horaire",
+    "add_timezone": "Ajouter un fuseau horaire",
+    "edit_timezone": "Modifier le fuseau horaire",
+    "delete_title": "Supprimer l'alarme",
+    "delete_desc": "Voulez-vous vraiment supprimer ce fuseau horaire de la liste ?",
+    "add": "Ajouter",
+    "cancel": "Annuler"
 }

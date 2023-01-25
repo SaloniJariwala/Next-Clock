@@ -43,5 +43,13 @@
     "upcoming_alarms": "今後のアラーム",
     "specific_time": "指定した時間にアラームを設定する",
     "alarm_history": "アラーム履歴",
-    "export": "CSVにエクスポート"
+    "export": "CSVにエクスポート",
+    "timezone": "タイムゾーン",
+    "select_timezone": "タイムゾーンを選択",
+    "add_timezone": "タイムゾーンを追加",
+    "edit_timezone": "タイムゾーンを編集",
+    "delete_title": "アラームの削除",
+    "delete_desc": "このタイムゾーンをリストから削除してもよろしいですか?",
+    "add": "追加",
+    "cancel": "キャンセル"
 }

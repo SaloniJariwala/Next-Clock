@@ -43,5 +43,13 @@
     "upcoming_alarms": "即将到来的警报",
     "specific_time": "设置指定时间的闹钟",
     "alarm_history": "报警历史",
-    "export": "导出为 CSV"
+    "export": "导出为 CSV",
+    "timezone": "时区",
+    "select_timezone": "选择时区",
+    "add_timezone": "添加时区",
+    "edit_timezone": "编辑时区",
+    "delete_title": "删除警报",
+    "delete_desc": "您确定要从列表中删除该时区吗？",
+    "add": "添加",
+    "cancel": "取消"
 }

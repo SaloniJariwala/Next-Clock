@@ -13,18 +13,30 @@ import {
 } from "react-icons/md";
 import { getCountryFlag } from "../../utils/getCountryFlag";
 import { countRemaining } from '../../utils/countRemaining';
+import {getCountryNameFromTimeZone} from "../../utils/getCountryNameFromTimeZone";
 
 const UpcomingAlarm = ({
     item,
     deleteAlarm,
     handleEdit,
-    handlePauseAlarm
+    handlePauseAlarm,
+    countryData
 }) => {
 
     const [showBtn, setShowBtn] = useState(false);
     const [alarmId, setAlarmId] = useState();
-    const [currentTime, setCurrrentTime] = useState();
+    const [currentTime, setCurrentTime] = useState();
     const [isInterval, setIsInterval] = useState(true);
+    const [fmt, setFmt] = useState('24');
+    const [localCountry, setLocalCountry] = useState();
+
+    useEffect(() => {
+        const getCountry = async () => {
+            const con = await getCountryNameFromTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone);
+            setLocalCountry(con);
+        };
+        getCountry();
+    },[]);
 
     const handleAdditionBtn = (id) => {
         setAlarmId(id);
@@ -35,8 +47,9 @@ const UpcomingAlarm = ({
         const time = new Date();
         clearInterval(isInterval);
         const format = localStorage.getItem("format");
+        setFmt(format);
         if (format === "12") {
-            setCurrrentTime(
+            setCurrentTime(
                 time.toLocaleString("en-US", {
                     hour: "numeric",
                     minute: "numeric",
@@ -45,7 +58,7 @@ const UpcomingAlarm = ({
                 })
             );
         } else {
-            setCurrrentTime(
+            setCurrentTime(
                 time.toLocaleString("en-US", {
                     hour: "numeric",
                     minute: "numeric",
@@ -77,7 +90,7 @@ const UpcomingAlarm = ({
 
     return (
         <div key={item.alarmId} className={styles.alarm}>
-            <Image src={getCountryFlag(item?.country?.countryName)} alt="Flag" height={30} width={30} />{' '}
+            <Image src={getCountryFlag(countryData?.find((i) => i._id === item.country).name)} alt="Flag" height={30} width={30} />{' '}
             <span>{item.title}</span>
             <Divider style={{ margin: '10px 0' }} />
             <span>
@@ -86,8 +99,12 @@ const UpcomingAlarm = ({
             </span>
             <Divider style={{ margin: '10px 0' }} />
             <span>
-                <Image src={AlarmSvg} alt="svg" height={20} width={20} />{' '}
-                {new Date(item?.orgTimestamp).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
+                <Image src={getCountryFlag(localCountry)} alt="svg" height={20} width={20} />{' '}
+                {new Date(item?.orgTimestamp).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: fmt !== '24' })}
+            </span>
+            <span>
+                <Image src={getCountryFlag(countryData?.find((i) => i._id === item.country).name)} alt="svg" height={20} width={20} />{' '}
+                {new Date(item?.countryTimestamp).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: fmt !== '24' })}
             </span>
             <div className={styles.outerSetting}>
                 <div className={styles.btnbar}>

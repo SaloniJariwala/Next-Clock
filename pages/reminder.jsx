@@ -1,10 +1,17 @@
 import Head from 'next/head';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import styles from '../styles/Index.module.css';
+import moment from "moment-timezone";
 
 const Reminder = () => {
+
+    useEffect(() => {
+        const date = new Date();
+        console.log(date.toLocaleString('en-US', { timeZone: "America/Los_Angeles" }));
+    }, []);
+
     return (
         <>
             <Head>

@@ -3,27 +3,189 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 100px;
+    padding: 50px;
 }
 
 .title {
     color: #112466;
-    font-size: 32px;
-    font-weight: 300;
-    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .display {
     font-family: 'Orbitron', sans-serif;
-    font-size: 130px;
+    font-size: 46px;
     color: #112466;
     margin-bottom: 0;
-    line-height: 1.5;
+    line-height: 1;
     display: flex;
+    font-weight: bold;
 }
 
 .day {
     font-family: 'Orbitron', sans-serif;
-    font-size: 40px;
+    font-size: 16px;
+    color: #333743;
+    opacity: 0.4;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.date {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dateDiv {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
     color: #112466;
+    font-weight: 600;
+    margin: unset;
+}
+
+.divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 5px 0;
+}
+
+.clock {
+    height: 350px;
+    width: 350px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgb(235, 235, 235);
+    padding: 10px 20px;
+    color: #112466;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;;
+}
+
+.country {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.timeCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 10px;
+    width: 275px;
+    height: 264px;
+    background: linear-gradient(317.7deg, rgba(0, 0, 0, 0.4) 0%, rgba(255, 255, 255, 0.4) 105.18%), white;
+    background-blend-mode: soft-light, normal;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset -5px -5px 10px #FAFBFF, inset 5px 5px 10px #A6ABBD;
+    border-radius: 20px;
+    margin: 15px;
+    cursor: pointer;
+}
+
+.cardDate {
+    color: #333743;
+    opacity: 0.4;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.selected {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 10px;
+    width: 275px;
+    height: 260px;
+    background: linear-gradient(317.7deg, rgba(0, 0, 0, 0.4) 0%, rgba(255, 255, 255, 0.4) 105.18%), white;
+    background-blend-mode: soft-light, normal;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: -10px -10px 20px #FAFBFF, 10px 10px 20px #A6ABBD;
+    border-radius: 20px;
+}
+
+.setBtn {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 25px;
+    gap: 10px;
+    color: #112466;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.modalTitle {
+    width: 100%;
+    color: #112466;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.inputTitle {
+    font-weight: bold;
+    font-size: 16px;
+    color: #112466;
+}
+
+.outerSetting {
+    position: relative;
+    width: 40%;
+}
+
+.btnbar {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btn {
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid rgb(235, 235, 235);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.editBtn {
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid rgb(235, 235, 235);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: absolute;
+    bottom: 19px;
+    left: -27px;
 }

@@ -1,26 +1,37 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Controller } from 'react-hook-form';
-import { countryData } from "../../../data/countries";
-import timezoneData from "../../../data/timezone.json";
 import styles from "../../../styles/Alarm.module.css";
 import i18n from '../../../i18n';
 
-const CountryContainer = ({ methods, isEdit }) => {
+const CountryContainer = ({
+    countryData,
+    methods,
+    isEdit,
+    settingSelectedCountryId
+}) => {
 
     const { control } = methods;
+    const [countries, setCountries] = useState([]);
 
     useEffect(() => {
-        if (!isEdit) {
-            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const country = timezoneData[timezone];
-            countryData.forEach((item) => {
-                if (item.countryName === country) {
-                    methods.setValue('country', JSON.stringify(item));
-                }
-            });
-        }
-        // eslint-disable-next-line
+        const sortedCountries = countryData?.sort((a, b) => {
+            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+            return 0;
+        });
+        setCountries(sortedCountries);
     }, []);
+
+    const handleChange = (event, onChange) => {
+        onChange(event);
+        settingSelectedCountryId(event.target.value);
+    };
 
     return (
         <div>
@@ -34,16 +45,16 @@ const CountryContainer = ({ methods, isEdit }) => {
                         id="country"
                         aria-label="Floating label select example"
                         value={value}
-                        onChange={onChange}
+                        onChange={(event) => handleChange(event, onChange)}
                         style={{ color: '#112466' }}
                     >
                         <option value="default">--{i18n.t('select_country')}--</option>
-                        {countryData?.map((item, index) => (
+                        {countries?.map((item, index) => (
                             <option
                                 key={index}
-                                value={JSON.stringify(item)}
+                                value={item._id}
                             >
-                                {`${item.countryName} (GMT${item.timezoneOffset})`}
+                                {item.name}
                             </option>
                         ))}
                     </select>

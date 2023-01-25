@@ -21,7 +21,8 @@ const AlarmHistory = ({
     pastAlarms,
     handleEdit,
     handlePauseAlarm,
-    deleteAlarm
+    deleteAlarm,
+    countryData
 }) => {
 
     const [showBtn, setShowBtn] = useState(false);
@@ -30,11 +31,11 @@ const AlarmHistory = ({
 
     useEffect(() => {
         let array = [];
-        pastAlarms.forEach((item) => {
+        pastAlarms?.forEach((item) => {
             let obj = {
                 alarmId: item.alarmId,
                 timeoutId: item.timeoutId,
-                countryTime: getTime(item.countryTimestamp),
+                // countryTime: getTime(item.countryTimestamp),
                 alarmTime: getTime(item.alarmTimestamp),
                 originalTime: getTime(item.orgTimestamp),
                 startedTime: getTime(item.startedTime),
@@ -70,8 +71,8 @@ const AlarmHistory = ({
     };
 
     const handleEditing = (id) => {
-        handleEdit(id);
         setShowBtn(!showBtn);
+        handleEdit(id);
     };
 
     return (
@@ -91,7 +92,7 @@ const AlarmHistory = ({
                 {pastAlarms?.map((item, index) => (
                     <tr key={index}>
                         <td>{item.title}</td>
-                        <td><Image src={getCountryFlag(item?.country.countryName)} alt={'flag'} height={30} width={30} /></td>
+                        <td><Image src={getCountryFlag(countryData?.find((i) => i._id === item.country).name)} alt={'flag'} height={30} width={30} /></td>
                         <td>{new Date(item?.orgTimestamp).toLocaleString('en-US',
                             { hour: 'numeric', minute: 'numeric', hour12: true })}</td>
                         <td>

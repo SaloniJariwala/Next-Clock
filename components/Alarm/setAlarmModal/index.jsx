@@ -11,13 +11,13 @@ import TitleContainer from './TitleContainer';
 import NoteContainer from './NoteContainer';
 import RepeatContainer from './RepeatContainer';
 import ZoneContainer from './ZoneContainer';
-import timezoneData from '../../../data/timezone.json';
-import { getTimezoneOffsetInUtc } from '../../../utils/getTimezoneOffsetInUtc';
-import { calculateTime } from '../../../utils/calculateCountryTime';
 import defaultAlarmTune from '../../../Assets/audios/alarm.mp3';
 import i18n from '../../../i18n';
 import TestAlarmModal from '../testAlarmModal';
 import { audioData } from '../../../data/audios';
+import axios from "axios";
+import {GET_TIMEZONE_BY_COUNTRY} from "../../../constant/endpoints";
+import TimezoneContainer from "./TimezoneContainer";
 
 const SetAlarmModal = ({
     show,
@@ -27,6 +27,7 @@ const SetAlarmModal = ({
     storeAlarm,
     handleEditAlarm,
     callToAlarm,
+    countryData,
     isEdit = false
 }) => {
 
@@ -36,26 +37,29 @@ const SetAlarmModal = ({
     const [showTestModal, setShowTestModal] = useState(false);
     const [currentAlarm, setCurrentAlarm] = useState();
     const [audio, setAudio] = useState(defaultAlarmTune);
+    const [selectedCountryId, setSelectedCountryId] = useState();
+    const [timezoneData, setTimezoneData] = useState([]);
 
-    const testPlay = () => {
-        // if(testRef.current) {
-            testRef.current.play();
-            testRef.current.loop = true;
-        // }
+    const settingSelectedCountryId = (id) => {
+        setSelectedCountryId(id);
     };
 
-    const testPause = () => {
-        // if(testRef.current) {
-            testRef.current.pause();
-        // }
-    };
+    useEffect(() => {
+        axios.get(`${GET_TIMEZONE_BY_COUNTRY}/${selectedCountryId}`)
+            .then((response) => {
+                setTimezoneData(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [selectedCountryId]);
 
     const closeTestModal = () => {
         setShowTestModal(false);
     };
 
     const handleStop = () => {
-        testPause();
+        // testPause();
         closeTestModal();
     };
 
@@ -69,37 +73,27 @@ const SetAlarmModal = ({
         newDate.setHours(Number(payload.hour));
         newDate.setMinutes(Number(payload.minute));
         newDate.setSeconds(0);
-        const countryTime = newDate;
-        const localCountry = timezoneData[Intl.DateTimeFormat().resolvedOptions().timeZone];
-        const flag = getTimezoneOffsetInUtc() > (payload.country.timezoneOffset * 100) ? localCountry : payload.country.value;
-        let fDate;
-        if (localCountry === payload.country.value) {
-            fDate = newDate;
+        const countryDate = newDate;
+        let alarmDate;
+        if(payload.timezone === Intl.DateTimeFormat().resolvedOptions().timeZone) {
+            alarmDate = countryDate;
         } else {
-            if (flag === localCountry) {
-                const payloadCountryDate = calculateTime(payload.country.timezoneOffset);
-                const diffTime = Date.now() - payloadCountryDate.getTime();
-                fDate = newDate.getTime() + diffTime;
-                if (Number.isInteger(Number(payload.country.timezoneOffset)) === false) {
-                    fDate = fDate - 720000;
-                }
-                fDate = new Date(fDate);
+            if(countryDate > new Date()) {
+                const diffTime = Date.now() - new Date(new Date().toLocaleString("en-US", { timeZone: payload.timezone })).getTime();
+                alarmDate = newDate.getTime() + diffTime;
+                alarmDate = new Date(alarmDate);
             } else {
-                const payloadCountryDate = calculateTime(payload.country.timezoneOffset);
-                const diffTime = payloadCountryDate.getTime() - Date.now();
-                fDate = newDate.getTime() - diffTime;
-                if (Number.isInteger(Number(payload.country.timezoneOffset)) === false) {
-                    fDate = fDate - 720000;
-                }
-                fDate = new Date(fDate);
+                const diffTime = new Date(new Date().toLocaleString("en-US", { timeZone: payload.timezone })).getTime() - Date.now();
+                alarmDate = newDate.getTime() - diffTime;
+                alarmDate = new Date(alarmDate);
             }
         }
         let newPayload = {
-            countryTime: countryTime,
             country: payload.country,
+            timezone: payload.timezone,
             startedTime: payload.startedTime,
-            alarmDate: fDate,
-            originalAlarm: fDate,
+            countryTimestamp: countryDate.getTime(),
+            alarmTimestamp: alarmDate.getTime(),
             alarmTitle: payload.alarmTitle,
             alarmNote: payload.alarmNote,
             alarmTune: payload.sound || defaultAlarmTune,
@@ -117,13 +111,9 @@ const SetAlarmModal = ({
     };
 
     const handleFormSubmit = (formData) => {
-        const startedTime = new Date();
         close();
-        let payload = { ...formData, startedTime, country: JSON.parse(formData.country) };
-        const ampm = methods.getValues('ampm');
-        if (ampm === 'PM') {
-            payload = { ...payload, hour: Number(payload.hour) + 12 };
-        }
+        let payload = methods.getValues('ampm') === 'PM' ? { ...formData, hour: Number(FormData.hour) + 12 } : formData;
+        payload = {...payload, startedTime: new Date().getTime()};
         countryWiseSetAlarm(payload);
     };
 
@@ -161,8 +151,17 @@ const SetAlarmModal = ({
                     <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
                         <div className={styles.row}>
                             <div className={styles.col}>
-                                <CountryContainer methods={methods} key={'country'} />
+                                <CountryContainer
+                                    methods={methods}
+                                    countryData={countryData}
+                                    settingSelectedCountryId={settingSelectedCountryId}
+                                />
                             </div>
+                            <div className={styles.col}>
+                                <TimezoneContainer methods={methods} timezoneData={timezoneData} isEdit={isEdit} />
+                            </div>
+                        </div>
+                        <div className={styles.row}>
                             <div className={styles.col}>
                                 <HourContainer methods={methods} key={'hour'} />
                             </div>

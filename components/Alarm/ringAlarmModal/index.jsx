@@ -12,11 +12,12 @@ const RingAlarmModal = ({
     close,
     pause,
     currentAlarm,
-    callToAlarm
+    callToAlarm,
+    countryData
 }) => {
 
     const handleRepeatAlarm = () => {
-        if(currentAlarm?.alarmRepeat){
+        if (currentAlarm?.alarmRepeat) {
             if (currentAlarm?.alarmRepeat?.length === 1 && currentAlarm?.alarmRepeat[0] === new Date(currentAlarm?.alarmTimestamp).getDay()) {
                 let d = new Date();
                 const day = new Date(currentAlarm?.alarmTimestamp).getDay();
@@ -46,177 +47,38 @@ const RingAlarmModal = ({
                 callToAlarm();
             }
         }
-        // if (currentAlarm.alarmRepeat?.includes('Monday')) {
-        //     debugger
-        //     if (new Date(currentAlarm?.alarmTimestamp).getDay() !== 1) {
-        //         if (new Date(currentAlarm?.alarmTimestamp).getDay() >= 1) {
-        //             debugger
-        //             let d = new Date();
-        //             d.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7));
-        //             const diff = d.getTime() - Date.now();
-        //             const allAlarms = JSON.parse(localStorage.getItem('Alarms'));
-        //             allAlarms?.forEach((item) => {
-        //                 if (item.alarmId === currentAlarm.alarmId) {
-        //                     item.alarmTimestamp += diff;
-        //                 }
-        //             });
-        //             localStorage.setItem('Alarms', JSON.stringify(allAlarms));
-        //             callToAlarm();
-        //             return;
-        //         }
-        //     }
-        // }
-        // if (currentAlarm.alarmRepeat?.includes('Tuesday')) {
-        //     debugger
-        //     if (new Date(currentAlarm?.alarmTimestamp).getDay() !== 2) {
-        //         if (new Date(currentAlarm?.alarmTimestamp).getDay() >= 2) {
-        //             debugger
-        //             let d = new Date();
-        //             d.setDate(d.getDate() + (((2 + 7 - d.getDay()) % 7) || 7));
-        //             const diff = d.getTime() - Date.now();
-        //             debugger
-        //             const allAlarms = JSON.parse(localStorage.getItem('Alarms'));
-        //             allAlarms?.forEach((item) => {
-        //                 if (item.alarmId === currentAlarm.alarmId) {
-        //                     item.alarmTimestamp += diff;
-        //                     debugger
-        //                 }
-        //             });
-        //             debugger
-        //             localStorage.setItem('Alarms', JSON.stringify(allAlarms));
-        //             callToAlarm();
-        //             return;
-        //         }
+    };
 
-        //     }
-        // }
-        // if (currentAlarm.alarmRepeat?.includes('Wednesday')) {
-        //     debugger
-        //     if (new Date(currentAlarm?.alarmTimestamp).getDay() !== 3) {
-        //         if (new Date(currentAlarm?.alarmTimestamp).getDay() < 3) {
-        //             debugger
-        //             let d = new Date();
-        //             d.setDate(d.getDate() + (((3 + 7 - d.getDay()) % 7) || 7));
-        //             const diff = d.getTime() - Date.now();
-        //             debugger
-        //             const allAlarms = JSON.parse(localStorage.getItem('Alarms'));
-        //             allAlarms?.forEach((item) => {
-        //                 if (item.alarmId === currentAlarm.alarmId) {
-        //                     item.alarmTimestamp += diff;
-        //                     debugger
-        //                 }
-        //             });
-        //             debugger
-        //             localStorage.setItem('Alarms', JSON.stringify(allAlarms));
-        //             callToAlarm();
-        //             return;
-        //         }
-
-        //     }
-        // }
-        // if (currentAlarm.alarmRepeat?.includes('Thursday')) {
-        //     debugger
-        //     if (new Date(currentAlarm?.alarmTimestamp).getDay() !== 4) {
-        //         if (new Date(currentAlarm?.alarmTimestamp).getDay() < 4) {
-        //             debugger
-        //             let d = new Date();
-        //             d.setDate(d.getDate() + (((4 + 7 - d.getDay()) % 7) || 7));
-        //             const diff = d.getTime() - Date.now();
-        //             const allAlarms = JSON.parse(localStorage.getItem('Alarms'));
-        //             allAlarms?.forEach((item) => {
-        //                 if (item.alarmId === currentAlarm.alarmId) {
-        //                     item.alarmTimestamp += diff;
-        //                 }
-        //             });
-        //             localStorage.setItem('Alarms', JSON.stringify(allAlarms));
-        //             callToAlarm();
-        //             return;
-        //         }
-        //     }
-        // }
-        // if (currentAlarm.alarmRepeat?.includes('Friday')) {
-        //     debugger
-        //     if (new Date(currentAlarm?.alarmTimestamp).getDay() !== 5) {
-        //         if (new Date(currentAlarm?.alarmTimestamp).getDay() < 5) {
-        //             debugger
-        //             let d = new Date();
-        //             d.setDate(d.getDate() + (((5 + 7 - d.getDay()) % 7) || 7));
-        //             const diff = d.getTime() - Date.now();
-        //             const allAlarms = JSON.parse(localStorage.getItem('Alarms'));
-        //             allAlarms?.forEach((item) => {
-        //                 if (item.alarmId === currentAlarm.alarmId) {
-        //                     item.alarmTimestamp += diff;
-        //                 }
-        //             });
-        //             localStorage.setItem('Alarms', JSON.stringify(allAlarms));
-        //             callToAlarm();
-        //             return;
-        //         }
-        //     }
-        // }
-        // if (currentAlarm.alarmRepeat?.includes('Saturday')) {
-        //     debugger
-        //     if (new Date(currentAlarm?.alarmTimestamp).getDay() !== 6) {
-        //         if (new Date(currentAlarm?.alarmTimestamp).getDay() < 6) {
-        //             debugger
-        //             let d = new Date();
-        //             d.setDate(d.getDate() + (((6 + 7 - d.getDay()) % 7) || 7));
-        //             const diff = d.getTime() - Date.now();
-        //             const allAlarms = JSON.parse(localStorage.getItem('Alarms'));
-        //             allAlarms?.forEach((item) => {
-        //                 if (item.alarmId === currentAlarm.alarmId) {
-        //                     item.alarmTimestamp += diff;
-        //                 }
-        //             });
-        //             localStorage.setItem('Alarms', JSON.stringify(allAlarms));
-        //             callToAlarm();
-        //             return;
-        //         }
-        //     }
-        // }
-        // if (currentAlarm.alarmRepeat?.includes('Sunday')) {
-        //     debugger
-        //     if (new Date(currentAlarm?.alarmTimestamp).getDay() !== 7) {
-        //         if (new Date(currentAlarm?.alarmTimestamp).getDay() < 7) {
-        //             debugger
-        //             let d = new Date();
-        //             d.setDate(d.getDate() + (((7 + 7 - d.getDay()) % 7) || 7));
-        //             const diff = d.getTime() - Date.now();
-        //             const allAlarms = JSON.parse(localStorage.getItem('Alarms'));
-        //             allAlarms?.forEach((item) => {
-        //                 if (item.alarmId === currentAlarm.alarmId) {
-        //                     item.alarmTimestamp += diff;
-        //                 }
-        //             });
-        //             localStorage.setItem('Alarms', JSON.stringify(allAlarms));
-        //             callToAlarm();
-        //             return;
-        //         }
-        //     }
-        // }
-    }
-
+    const handleSnooze = (snoozetime) => {
+          const allAlarms = JSON.parse(localStorage.getItem('Alarms'));
+          allAlarms.forEach((item) => {
+              if(item.alarmId === currentAlarm?.alarmId) {
+                  item.alarmTimestamp += snoozetime;
+              }
+          });
+          localStorage.setItem('Alarms', JSON.stringify(allAlarms));
+          close();
+          pause();
+          callToAlarm();
+    };
 
     const handleStop = () => {
         const stopTime = new Date();
         const alarms = JSON.parse(localStorage.getItem('Alarms'));
         let obj;
         alarms.forEach((item) => {
-            debugger
             if(item.alarmId === currentAlarm.alarmId) {
-                debugger
                 obj = item;
             };
         });
         const filtered = alarms.filter((item) => item.alarmId !== obj.alarmId);
         obj = {...obj, stopTime: stopTime.getTime()};
         filtered.push(obj);
-        debugger
         localStorage.setItem('Alarms', JSON.stringify(filtered));
         handleRepeatAlarm();
         pause();
         close();
-    }
+    };
 
     return (
         <Modal
@@ -230,7 +92,7 @@ const RingAlarmModal = ({
         >
             <div className={styles.ringModalOuter}>
                 <Image src={Ring} alt="ring-logo" height={60} width={60} />
-                <Image src={getCountryFlag(currentAlarm?.country?.countryName)} alt="flag" height={50} width={50} />
+                <Image src={getCountryFlag(countryData?.find((i) => i._id === currentAlarm?.country)?.name)} alt="flag" height={50} width={50} />
                 <span className={styles.ringTitle}>
                     {currentAlarm?.title}
                 </span>
@@ -243,9 +105,9 @@ const RingAlarmModal = ({
                 </span>
                 <Divider />
                 <div className={styles.ringBtnBar}>
-                    <button className={styles.setBtn}>Snooze 5 min</button>
-                    <button className={styles.setBtn}>Snooze 10 min</button>
-                    <button className={styles.setBtn}>Snooze 15 min</button>
+                    <button className={styles.setBtn} onClick={() => handleSnooze(300000)}>Snooze 5 min</button>
+                    <button className={styles.setBtn} onClick={() => handleSnooze(600000)}>Snooze 10 min</button>
+                    <button className={styles.setBtn} onClick={() => handleSnooze(900000)}>Snooze 15 min</button>
                 </div>
                 <button className={styles.setBtn} style={{ margin: '30px 0' }} onClick={handleStop}>
                     <Image src={Stop} alt={'stop'} height={20} width={20} />{' '}Stop
