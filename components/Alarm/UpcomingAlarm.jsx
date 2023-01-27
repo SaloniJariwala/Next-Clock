@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from "../../styles/Alarm.module.css";
 import Ring from "../../public/Assets/svg/reminder.svg";
-import AlarmSvg from "../../public/Assets/svg/alarm.svg";
 import { Divider, Popconfirm } from 'antd';
 import {
     MdEdit,

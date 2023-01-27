@@ -51,5 +51,7 @@
     "delete_title": "Delete Alarm",
     "delete_desc": "Are you sure to delete this timezone from the list?",
     "add": "Add",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "set_reminder": "Set Reminder",
+    "date_time": "Date-Time"
 }

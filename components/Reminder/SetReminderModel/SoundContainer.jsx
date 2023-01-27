@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styles from "../../../styles/Alarm.module.css";
+import styles from "../../../styles/Reminder.module.css";
 import { MdPlayCircleOutline, MdPauseCircleOutline } from "react-icons/md";
 // import { IoCloudUploadOutline } from "react-icons/io5";
 import i18n from '../../../i18n';
@@ -12,8 +12,7 @@ import {getLanguageLabel} from '../../../utils/getAlarmLabel';
 const SoundContainer = ({
     methods,
     isEdit,
-    selectedAlarm,
-    audioPlayFlag,
+    selectedAlarm
 }) => {
 
     const audioRef = useRef();
@@ -34,14 +33,6 @@ const SoundContainer = ({
             }
         })
     };
-
-    useEffect(() => {
-        if(audioPlayFlag) {
-            play();
-        } else {
-            pause();
-        }
-    }, [audioPlayFlag]);
 
     useEffect(() => {
         setOptions(audioData);

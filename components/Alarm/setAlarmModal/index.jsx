@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Divider, Modal } from 'antd';
 import styles from "../../../styles/Alarm.module.css";
-import { FormProvider, set } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import { MdPlayCircleOutline } from "react-icons/md";
 import CountryContainer from './CountryContainer';
 import HourContainer from './HourContainer';
@@ -39,6 +39,7 @@ const SetAlarmModal = ({
     const [audio, setAudio] = useState(defaultAlarmTune);
     const [selectedCountryId, setSelectedCountryId] = useState();
     const [timezoneData, setTimezoneData] = useState([]);
+    const [audioPlayFlag, setAudioPlayFlag] = useState(false);
 
     const settingSelectedCountryId = (id) => {
         setSelectedCountryId(id);
@@ -60,6 +61,7 @@ const SetAlarmModal = ({
 
     const handleStop = () => {
         // testPause();
+        setAudioPlayFlag(false);
         closeTestModal();
     };
 
@@ -124,12 +126,12 @@ const SetAlarmModal = ({
         const alarm = {
             title: methods.getValues('alarmTitle'),
             note: methods.getValues('alarmNote'),
-            country: JSON.parse(methods.getValues('country')),
+            country: methods.getValues('country'),
             orgTimestamp: date.getTime()
         };
+        setAudioPlayFlag(true);
         const audios = audioData.filter((item) => item.audioId === methods.getValues('sound'));
         setAudio(audios[0]?.track);
-        testPlay();
         setCurrentAlarm(alarm);
         setShowTestModal(true);
     };
@@ -176,7 +178,7 @@ const SetAlarmModal = ({
                         </div>
                         <div className={styles.row}>
                             <div className={styles.col}>
-                                <SoundContainer methods={methods} key={'sound'} />
+                                <SoundContainer methods={methods} key={'sound'} audioPlayFlag={audioPlayFlag} />
                             </div>
                         </div>
                         <div className={styles.row}>
@@ -217,6 +219,7 @@ const SetAlarmModal = ({
                     closeModal={closeTestModal}
                     currentAlarm={currentAlarm}
                     handleStop={handleStop}
+                    countryData={countryData}
                 />
             </Modal>
         </>

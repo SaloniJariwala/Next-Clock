@@ -7,12 +7,14 @@ import { getCountryFlag } from '../../../utils/getCountryFlag';
 import { getTime } from "../../../utils/getTime";
 import Stop from "../../../public/Assets/svg/stop.svg";
 import defaultAlarmTune from "../../../Assets/audios/alarm.mp3";
+import {audioData} from "../../../data/audios";
 
 const TestAlarmModal = ({
     show,
     closeModal,
     currentAlarm,
-    handleStop
+    handleStop,
+    countryData
 }) => {
 
     return (
@@ -26,7 +28,7 @@ const TestAlarmModal = ({
         >
             <div className={styles.ringModalOuter}>
                 <Image src={Ring} alt="ring-logo" height={60} width={60} />
-                <Image src={getCountryFlag(currentAlarm?.country?.countryName)} alt="flag" height={50} width={50} />
+                <Image src={getCountryFlag(countryData?.find((i) => i._id === currentAlarm?.country)?.name)} alt="flag" height={50} width={50} />
                 <span className={styles.ringTitle}>
                     {currentAlarm?.title}
                  </span>

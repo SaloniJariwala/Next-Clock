@@ -9,8 +9,6 @@ import { v4 as uuidv4 } from "uuid";
 import { notifyUser } from "../../utils/notification";
 import RingAlarmModal from './ringAlarmModal';
 import { useForm } from 'react-hook-form';
-import { getCurrentCountry } from '../../utils/getCurrentCountry';
-import { countryData } from '../../data/countries';
 import { audioData } from '../../data/audios';
 import SpecificAlarmSection from "./SpecificAlarmSection";
 import AlarmHistory from "./AlarmHistory";
@@ -35,14 +33,14 @@ const Alarm = ({ countryData, timezoneData }) => {
     const [pastAlarms, setPastAlarms] = useState([]);
     const [alarmPause, setAlarmPause] = useState(false);
 
-    useEffect(() => {
-        countryData.forEach((item) => {
-            if(item.value === getCurrentCountry()) {
-                localStorage.setItem('country', JSON.stringify(item));
-                setCountry(item);
-            }
-        });
-    }, []);
+    // useEffect(() => {
+    //     countryData.forEach((item) => {
+    //         if(item.value === getCurrentCountry()) {
+    //             localStorage.setItem('country', JSON.stringify(item));
+    //             setCountry(item);
+    //         }
+    //     });
+    // }, []);
 
     useEffect(() => {
         getAlarms();
@@ -86,7 +84,6 @@ const Alarm = ({ countryData, timezoneData }) => {
     };
 
     const resetForm = () => {
-        const countryValue = countryData.filter((item) => item.countryName === getCurrentCountry())[0];
         methods.setValue('country', 'selected');
         methods.setValue('timezone', 'selected');
         methods.setValue('hour', '0');

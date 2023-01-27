@@ -52,6 +52,7 @@ import AmericanSamoa from "../public/Assets/flag/american-samoa.png";
 import Andorra from "../public/Assets/flag/andorra.png";
 import Anguilla from "../public/Assets/flag/anguilla.png";
 import AntiguaAndBarbuda from "../public/Assets/flag/anguilla.png";
+import Aruba from "../public/Assets/flag/aruba.png";
 import Armenia from "../public/Assets/flag/armenia.png";
 import Azerbaijan from "../public/Assets/flag/azerbaijan.png";
 import Bahamas from "../public/Assets/flag/bahamas.png";
@@ -269,6 +270,9 @@ export const getCountryFlag = (country) => {
 
         case 'Armenia':
             return Armenia;
+
+        case 'Aruba':
+            return Aruba;
 
         case 'Azerbaijan':
             return Azerbaijan;

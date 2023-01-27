@@ -1,16 +1,11 @@
 import Head from 'next/head';
 import React, {useEffect} from 'react';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import styles from '../styles/Index.module.css';
-import moment from "moment-timezone";
+import styles from '../styles/Reminder.module.css';
+import ReminderCom from '../components/Reminder/index';
+import axios from "axios";
+import {GET_CATEGORIES, GET_COUNTRY_API, GET_TIMEZONE_BY_COUNTRY} from "../constant/endpoints";
 
-const Reminder = () => {
-
-    useEffect(() => {
-        const date = new Date();
-        console.log(date.toLocaleString('en-US', { timeZone: "America/Los_Angeles" }));
-    }, []);
+const Reminder = ({ categoryData }) => {
 
     return (
         <>
@@ -23,9 +18,30 @@ const Reminder = () => {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
                 <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet" />
             </Head>
-            
+            <div className={styles.main}>
+                <ReminderCom categoryData={categoryData} />
+            </div>
         </>
     )
+};
+
+export async function getServerSideProps () {
+
+    let categoryData;
+
+    await axios.get(GET_CATEGORIES)
+        .then((response) => {
+            categoryData = response.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+    return {
+        props: {
+            categoryData
+        }
+    }
 }
 
 export default Reminder;
