@@ -12,7 +12,8 @@ import {getLanguageLabel} from '../../../utils/getAlarmLabel';
 const SoundContainer = ({
     methods,
     isEdit,
-    selectedAlarm
+    selectedAlarm,
+    audioPlayFlag,
 }) => {
 
     const audioRef = useRef();
@@ -33,6 +34,14 @@ const SoundContainer = ({
             }
         })
     };
+
+    useEffect(() => {
+        if(audioPlayFlag) {
+            play();
+        } else {
+            pause();
+        }
+    }, [audioPlayFlag]);
 
     useEffect(() => {
         setOptions(audioData);

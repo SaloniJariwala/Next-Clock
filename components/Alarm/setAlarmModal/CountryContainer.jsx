@@ -62,6 +62,6 @@ const CountryContainer = ({
             />
         </div>
     )
-}
+};
 
 export default CountryContainer;

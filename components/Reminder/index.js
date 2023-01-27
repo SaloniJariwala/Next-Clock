@@ -4,8 +4,7 @@ import ReminderClock from "./ReminderClock";
 import styles from '../../styles/Reminder.module.css';
 import SetReminder from "./SetReminderModel";
 
-const Reminder = () => {
-
+const Reminder = ({ categoryData }) => {
     const [showModal, setShowModal] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
 
@@ -22,6 +21,7 @@ const Reminder = () => {
                 close={closeModal}
                 isEdit={isEdit}
                 show={showModal}
+                categoryData={categoryData}
             />
         </>
     );

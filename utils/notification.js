@@ -1,4 +1,4 @@
-export const notifyUser = (notificationText = "Notification Enabled", notificationNote) => {
+export const notifyUser = (notificationText = "Notification From Alarm", notificationNote) => {
     if (!("Notification" in window)) {
         alert("Browser Not support notification");
     } else if (Notification.permission === "granted") {

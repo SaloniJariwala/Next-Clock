@@ -19,6 +19,7 @@ const SpecificAlarmSection = ({ storeAlarm, callToAlarm, countryData }) => {
             alarmId: uuidv4(),
             timeoutId: "",
             country: countryData?.find((item) => item.name === countryName)._id,
+            countryTimestamp: time,
             alarmTimestamp: time,
             orgTimestamp: time,
             startedTime: Date.now(),
