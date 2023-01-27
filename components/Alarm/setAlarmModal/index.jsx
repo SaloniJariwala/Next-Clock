@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Divider, Modal } from 'antd';
 import styles from "../../../styles/Alarm.module.css";
-import { FormProvider, set } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import { MdPlayCircleOutline } from "react-icons/md";
 import CountryContainer from './CountryContainer';
 import HourContainer from './HourContainer';

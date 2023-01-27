@@ -1,9 +1,7 @@
 import Head from 'next/head';
 import React, {useEffect} from 'react';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import styles from '../styles/Index.module.css';
-import moment from "moment-timezone";
+import styles from '../styles/Reminder.module.css';
+import ReminderCom from '../components/Reminder/index';
 
 const Reminder = () => {
 
@@ -23,7 +21,9 @@ const Reminder = () => {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
                 <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet" />
             </Head>
-            
+            <div className={styles.main}>
+                <ReminderCom />
+            </div>
         </>
     )
 }
