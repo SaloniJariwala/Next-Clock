@@ -10,7 +10,6 @@ import { notifyUser } from "../../utils/notification";
 import RingAlarmModal from './ringAlarmModal';
 import { useForm } from 'react-hook-form';
 import { getCurrentCountry } from '../../utils/getCurrentCountry';
-import { countryData } from '../../data/countries';
 import { audioData } from '../../data/audios';
 import SpecificAlarmSection from "./SpecificAlarmSection";
 import AlarmHistory from "./AlarmHistory";
@@ -250,7 +249,6 @@ const Alarm = ({ countryData, timezoneData }) => {
     const handlePauseAlarm = (alarm) => {
         if (!alarmPause) {
             setAlarmPause(true);
-            clearTimeout(alarm.timeoutId);
             const allAlarms = JSON.parse(localStorage.getItem("Alarms"));
             allAlarms.forEach((item) => {
                 if (item.alarmTimestamp === alarm.alarmTimestamp) {
@@ -307,6 +305,7 @@ const Alarm = ({ countryData, timezoneData }) => {
                         getAlarms={getAlarms}
                         play={play}
                         countryData={countryData}
+                        alarmPause={alarmPause}
                     />
                 ))}
             </div>

@@ -15,4 +15,4 @@ export const countRemaining = (alarmTime) => {
         }` +
         `${seconds > 0 ? (seconds < 10 ? `0${seconds}` : `${seconds}`) : "00"}`;
     return str;
-}
+};

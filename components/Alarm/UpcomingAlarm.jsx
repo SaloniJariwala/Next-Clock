@@ -12,8 +12,9 @@ import {
     MdPlayArrow,
 } from "react-icons/md";
 import { getCountryFlag } from "../../utils/getCountryFlag";
-import { countRemaining } from '../../utils/countRemaining';
 import {getCountryNameFromTimeZone} from "../../utils/getCountryNameFromTimeZone";
+import AlarmTimer from "./AlarmTimer";
+import {countRemaining} from "../../utils/countRemaining";
 
 const UpcomingAlarm = ({
     item,
@@ -84,6 +85,9 @@ const UpcomingAlarm = ({
     };
 
     const handlePlayPause = (item) => {
+        // debugger
+        // clearInterval(item.intervalId);
+        // debugger
         handlePauseAlarm(item);
         setShowBtn(!showBtn);
     };
@@ -95,7 +99,7 @@ const UpcomingAlarm = ({
             <Divider style={{ margin: '10px 0' }} />
             <span>
                 <Image src={Ring} alt="svg" height={20} width={20} />{' '}
-                {countRemaining(item?.alarmTimestamp)}
+                <AlarmTimer timer={item} />
             </span>
             <Divider style={{ margin: '10px 0' }} />
             <span>
