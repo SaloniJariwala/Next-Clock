@@ -12,8 +12,9 @@ import defaultTimerSound from "../../Assets/audios/alarm.mp3";
 import DisplayTimerModal from "./RingTimerModal";
 import { audioData } from "../../data/audios";
 import styles from "../../styles/Timer.module.css";
-import { CSVLink } from "react-csv";
-import { BiExport } from "react-icons/bi";
+import { v4 as uuidv4 } from "uuid";
+import TimerHistory from "./TimerHistory";
+import { IoGitMerge } from "react-icons/io5";
 
 function Timer({ data }) {
   const methods = useForm();
@@ -36,7 +37,9 @@ function Timer({ data }) {
   const [isFlag, setIsFlag] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [dateIntval, setDateIntval] = useState(null);
-  const [id, setId] = useState(0);
+  const [id, setId] = useState("0");
+  const [isDataFlag, setIsDataFlag] = useState(false);
+  const [ringData, setRingData] = useState([]);
   let timerId = id;
   let timeoutId = isInaterval;
   let updateDateTime = timerDay;
@@ -65,22 +68,33 @@ function Timer({ data }) {
 
   const handleCloseRing = () => {
     pause();
-    debugger
+    debugger;
     const getItem = JSON.parse(localStorage.getItem("timer")) || [];
-    debugger
+    debugger;
     getItem.forEach((item) => {
-      if(item.timerId === timerId){
-        if (getItem.onzero === "stoptimer") {
-          setTimerSecond(0);
-          setTimerMinute(0);
-          setTimerHour(0);
-          setFlag(true);
-        } else {
-          getTimers();
-          setIsResume(false);
-        }
+      debugger;
+      if (item.onzero === "stoptimer") {
+        debugger;
+        debugger;
+        setTimerSecond(0);
+        setTimerMinute(0);
+        setTimerHour(0);
+        setFlag(false);
+      } else {
+        debugger;
+        getTimers();
+        debugger;
+        setIsResume(false);
+        debugger;
       }
-    })
+    });
+    let stopTime = new Date();
+    getItem.forEach((item) => {
+      if (item.timerId) {
+        item.stopTime = stopTime;
+      }
+    });
+    localStorage.setItem("timer", JSON.stringify(getItem));
   };
 
   const setTimer = (hour = 0, minute = 0, second = 0) => {
@@ -112,8 +126,15 @@ function Timer({ data }) {
     } else {
       return;
     }
-    const getTimer = JSON.parse(localStorage.getItem("timer")) || [];
-    setId(getTimer?.timerId);
+
+    let getTime = JSON.parse(localStorage.getItem("timer"));
+    getTime.forEach((item) => {
+      setId(item.timerId);
+      if (updateHour === 0 && updateMinute === 0 && updateSecond === 0) {
+        setId("");
+        setFlag(false);
+      }
+    });
     setTimerSecond(updateSecond);
     setTimerMinute(updateMinute);
     setTimerHour(updateHour);
@@ -122,35 +143,28 @@ function Timer({ data }) {
   };
 
   function count() {
+    debugger;
+    const timerHistory = JSON.parse(localStorage.getItem("timer")) || [];
+    debugger;
     if (
       updateDateTime === 0 &&
       updateHour === 0 &&
       updateMinute === 0 &&
       updateSecond === 0
     ) {
-      const timer = JSON.parse(localStorage.getItem("timer")) || [];
-      timer.forEach((item) => {
-        playAudio();
+      timerHistory.forEach((item) => {
         if (item.timerId === timerId) {
+          playAudio();
           notifyUser(item?.title);
           setTimeModal(true);
-          clearInterval(timeoutId);
-          clearInterval(dateIntval);
-          setFlag(false);
-          // const history = {
-          //   timerId : item?.timerId,
-          //   updateHour : item?.hour,
-          //   updateMinute : item?.minute,
-          //   updateSecond : item?.second,
-          //   sound: item?.sound,
-          //   title: item?.title,
-          //   onzero: item?.onzero,
-          //   volume: item?.volume,
-          // };
-          // timer.push(history);
-          // localStorage.setItem("his", JSON.stringify(timer));
+          setRingData(item);
         }
       });
+
+      // const getHistory = JSON.parse(localStorage.getItem("his")) || [];
+      // const timer = JSON.parse(localStorage.getItem("timer"));
+      // getHistory.push(timer);
+      // localStorage.setItem("timer", JSON.stringify(getHistory));
     } else if (
       updateDateTime > 0 &&
       updateHour > 0 &&
@@ -165,23 +179,30 @@ function Timer({ data }) {
   }
 
   const getTimers = () => {
+    debugger;
     const getTimer = JSON.parse(localStorage.getItem("timer")) || [];
+    debugger;
+    let startDate = new Date();
+    let stopTime = new Date();
+    debugger;
     getTimer.forEach((item) => {
-      timerId = getTimer?.timerId;
-      updateHour = getTimer?.hour;
-      updateMinute = getTimer?.minute;
-      updateSecond = getTimer?.second;
-      audioData.forEach((item) => {
-        if (item.audioId === item?.sound) {
-          setSound(item.track);
+      startDate = item?.startDate;
+      stopTime = item?.stopTime;
+      timerId = item?.timerId;
+      updateHour = item?.hour;
+      updateMinute = item?.minute;
+      updateSecond = item?.second;
+      audioData.forEach((audio) => {
+        if (audio.audioId === item?.sound) {
+          setSound(audio.track);
         }
       });
-      setTitle(getTimer?.title);
-      setOnZero(getTimer?.onzero);
-      setVolume(getTimer?.volume);
-      setFlag(true);
+      setId(item?.timerId);
+      setTitle(item?.title);
+      setOnZero(item?.onzero);
+      setVolume(item?.volume);
     });
-
+    setFlag(true);
 
     setIsInterVal(
       setInterval(() => {
@@ -197,72 +218,82 @@ function Timer({ data }) {
   };
 
   const stop = () => {
+    debugger;
     const getTimer = JSON.parse(localStorage.getItem("timer")) || [];
-    if (getTimer?.day) {
-      clearInterval(dateIntval);
-      setFlag(true);
+    console.log(getTimer);
+    debugger;
+    let startDate = new Date();
+    let stopTime = new Date();
+    debugger;
+    getTimer.forEach((item) => {
+      if (item?.dateTime) {
+        debugger;
+        clearInterval(dateIntval);
+        debugger;
+        setFlag(true);
+        debugger;
+        item.startDate = startDate;
+        item.stopTime = stopTime;
+        item.dateTime,
+          (item.day = updateDateTime),
+          (item.hour = updateHour),
+          (item.minute = updateMinute),
+          (item.second = updateSecond),
+          item.sound,
+          item.title,
+          item.volume,
+          item.timeoutId;
 
-      // const obj = {
-      //   dateTime: new Date(getTimer?.dateTime),
-      //   day: updateDateTime,
-      //   hour: updateHour,
-      //   minute: updateMinute,
-      //   second: updateSecond,
-      //   sound: getTimer?.sound,
-      //   title: getTimer?.title,
-      //   onzero: getTimer?.onzero,
-      //   volume: getTimer?.volume,
-      //   // isInaterval: clearInterval(getTimer?.isInaterval),
-      //   // flag: true,
-      // };
-      localStorage.setItem("timer", JSON.stringify(obj));
-    } else {
-      getTimer.forEach((item) => {
+        localStorage.setItem("timer", JSON.stringify(getTimer));
+      } else {
+        debugger;
+        // if (item.timerId === timerId) {
         clearInterval(isInaterval);
         setFlag(true);
-        item.hour = updateHour,
-          item.minute = updateMinute,
-          item.second = updateSecond,
-          item.sound = sound,
-          item.title = title,
-          item.onzero = onZero,
-          item.volume = volume,
-          item.timeoutId = timeoutId,
-          localStorage.setItem("timer", JSON.stringify(getTimer));
-      });
-      setIsResume(true);
-    }
+        (item.startDate = startDate), (item.stopTime = stopTime);
+        (item.hour = updateHour),
+          (item.minute = updateMinute),
+          (item.second = updateSecond),
+          item.sound,
+          item.title,
+          item.onzero,
+          item.volume,
+          item.timeoutId;
+        localStorage.setItem("timer", JSON.stringify(getTimer));
+        // }
+      }
+    });
+
+    setIsResume(true);
   };
 
   const Reset = () => {
     const getTimer = JSON.parse(localStorage.getItem("timer")) || [];
-    if (getTimer?.day) {
-      setFlag(false);
-      clearInterval(dateIntval);
-      // const obj = {
-      //   day: setDateTimer(0),
-      //   hour: setTimerHour(0),
-      //   minute: setTimerMinute(0),
-      //   second: setTimerSecond(0),
-      //   sound: "getTimer?.sound",
-      //   title: "",
-      //   onzero: 0,
-      //   volume: "getTimer?.volume",
-      // };
-      // localStorage.setItem("timer", JSON.stringify(obj));
-    } else {
-      debugger;
-      clearInterval(isInaterval);
-      setFlag(false);
-      setTimerHour(0);
-      setTimerMinute(0);
-      setTimerSecond(0);
-      setTitle("");
-      setOnZero("stoptimer");
-      debugger;
-    }
+    getTimer.forEach((item) => {
+      if (item?.dateTime) {
+        if (item.timerId === timerId) {
+          clearInterval(dateIntval);
+          setFlag(false);
+          setTimerDays(0);
+          setTimerHour(0);
+          setTimerMinute(0);
+          setTimerSecond(0);
+          setTitle("");
+          setOnZero("stoptimer");
+        }
+      } else {
+        debugger;
+        clearInterval(isInaterval);
+        setFlag(false);
+        setTimerHour(0);
+        setTimerMinute(0);
+        setTimerSecond(0);
+        setTitle("");
+        setOnZero("stoptimer");
+        debugger;
+      }
+    });
   };
-
   const resume = () => {
     debugger;
     setFlag(false);
@@ -284,38 +315,49 @@ function Timer({ data }) {
 
   const handleSpecificSecond = (timer) => {
     let specificSecondData = JSON.parse(localStorage.getItem("timer")) || [];
-
+    let startDate = new Date();
     const payload = {
+      timerId: uuidv4(),
+      timeoutId: isInaterval,
+      startDate: startDate,
+      stopTime: "",
       hour: updateHour || 0,
       minute: updateMinute || 0,
-      second: timer / 1000,
-      title: title,
+      second: timer / 1000 || 0,
+      title: timer / 1000 + " " + "second " || 0,
       sound: sound,
       volum: volume,
       onzero: onZero,
     };
     specificSecondData.push(payload);
     localStorage.setItem("timer", JSON.stringify(specificSecondData));
-    // setFlag(false);
-    // flagSet();
+    setFlag(false);
+    flagSet();
     getTimers();
     setTimer(updateHour, updateMinute, updateSecond);
     count();
   };
 
   const handleSpecificMinute = (minute) => {
+    let specificMinuteData = JSON.parse(localStorage.getItem("timer")) || [];
+    let startDate = new Date();
     if (minute < Date.now()) {
       const data = new Date(minute);
       const payload = {
+        timerId: uuidv4(),
+        timeoutId: isInaterval,
+        startDate: startDate,
+        stopTime: "",
         hour: updateHour || 0,
-        minute: data.getMinutes(),
+        minute: data.getMinutes() || 0,
         second: data.getSeconds() || 0,
-        title: title,
+        title: data.getMinutes() + " " + "minute" || 0,
         sound: sound,
         volum: volume,
         onzero: onZero,
       };
-      localStorage.setItem("timer", JSON.stringify(payload));
+      specificMinuteData.push(payload);
+      localStorage.setItem("timer", JSON.stringify(specificMinuteData));
       flagSet();
       getTimers();
       setTimer(updateHour, updateMinute, updateSecond);
@@ -324,18 +366,25 @@ function Timer({ data }) {
   };
 
   const handleSpecificHour = (hour) => {
+    let specificHourData = JSON.parse(localStorage.getItem("timer")) || [];
+    let startDate = new Date();
     if (hour < Date.now()) {
       const data = new Date(hour);
       const payload = {
+        timerId: uuidv4(),
+        timeoutId: isInaterval,
+        startDate: startDate,
+        stopTime: "",
         hour: data.getHours(),
         minute: data.getMinutes(),
         second: data.getSeconds(),
-        title: title,
+        title: data.getHours() + " " + "Hours",
         sound: sound,
         volum: volume,
         onzero: onZero,
       };
-      localStorage.setItem("timer", JSON.stringify(payload));
+      specificHourData.push(payload);
+      localStorage.setItem("timer", JSON.stringify(specificHourData));
       flagSet();
       getTimers();
       setTimer(updateHour, updateMinute, updateSecond);
@@ -375,94 +424,113 @@ function Timer({ data }) {
 
   //2. Count till (from) date and time
   const setDateTimer = (date) => {
-    if (date !== 0) {
-      updateDateTime = date;
-    }
-    setIsFlag(true);
-    const startDate = new Date();
-    var endDate = new Date(date.dateTime);
-    const timeRemaining = endDate.getTime() - startDate.getTime();
-    // if (endDate < startDate) {
-    //   debugger
-    //   alert("please select proper date");
-    //   // setIsTimer(false);
-    //   debugger
-    // }
-    if (timeRemaining > 0) {
-      const start_date = new Date(startDate);
-      const end_date = new Date(endDate);
-      const start_millis = start_date?.getTime();
-      const end_millis = end_date?.getTime();
-      const old_sec = start_millis / 1000;
-      const current_sec = end_millis / 1000;
-      let seconds = current_sec - old_sec;
-      let days = Math.floor(seconds / (24 * 60 * 60));
-      seconds -= days * 24 * 60 * 60;
-      updateDateTime = Math.abs(days);
-      let hours = Math.floor(seconds / (60 * 60));
-      seconds -= hours * 60 * 60;
-      updateHour = Math.abs(hours);
-      let minutes = Math.floor(seconds / 60);
-      seconds -= minutes * 60;
-      updateMinute = Math.abs(minutes);
-      updateSecond = Math.floor(Math.abs(seconds));
-      setTimerDays(updateDateTime);
-      setTimerHour(updateHour);
-      setTimerMinute(updateMinute);
-      setTimerSecond(updateSecond);
-
-      const getTimer = JSON.parse(localStorage.getItem("timer")) || [];
-      const obj = {
-        dateTime: new Date(getTimer?.dateTime),
-        day: updateDateTime,
-        hour: updateHour,
-        minute: updateMinute,
-        second: updateSecond,
-        sound: getTimer?.sound,
-        title: getTimer?.title,
-        // flag:false
-      };
-      localStorage.setItem("timer", JSON.stringify(obj));
-      count();
-    }
+    date.forEach((item) => {
+      if (item.timerId === timerId) {
+        if (item.dateTime !== 0) {
+          updateDateTime = item.dateTime;
+        }
+        setIsFlag(true);
+        const startDate = new Date();
+        var endDate = new Date(item.dateTime);
+        // console.log(endDate,"::")
+        const timeRemaining = endDate.getTime() - startDate.getTime();
+        // if (endDate < startDate) {
+        //   debugger
+        //   alert("please select proper date");
+        //   // setIsTimer(false);
+        //   debugger
+        // }
+        if (timeRemaining > 0) {
+          const start_date = new Date(startDate);
+          const end_date = new Date(endDate);
+          const start_millis = start_date?.getTime();
+          const end_millis = end_date?.getTime();
+          const old_sec = start_millis / 1000;
+          const current_sec = end_millis / 1000;
+          let seconds = current_sec - old_sec;
+          let days = Math.floor(seconds / (24 * 60 * 60));
+          seconds -= days * 24 * 60 * 60;
+          updateDateTime = Math.abs(days);
+          let hours = Math.floor(seconds / (60 * 60));
+          seconds -= hours * 60 * 60;
+          updateHour = Math.abs(hours);
+          let minutes = Math.floor(seconds / 60);
+          seconds -= minutes * 60;
+          updateMinute = Math.abs(minutes);
+          updateSecond = Math.floor(Math.abs(seconds));
+          setId(item.timerId);
+          if (
+            updateDateTime === 0 &&
+            updateHour === 0 &&
+            updateMinute === 0 &&
+            updateSecond === 0
+          ) {
+            setId("");
+            setFlag(false);
+          }
+          setTimerDays(updateDateTime);
+          setTimerHour(updateHour);
+          setTimerMinute(updateMinute);
+          setTimerSecond(updateSecond);
+        }
+      }
+    });
+    count();
   };
 
   // /Count till (from) date and time
   const getDateTimer = () => {
     const getTimer = JSON.parse(localStorage.getItem("timer")) || [];
-    updateDateTime = getTimer?.dateTime;
-    audioData.forEach((item) => {
-      if (item.audioId === getTimer?.sound) {
-        setSound(item.track);
-      }
+    getTimer.forEach((item) => {
+      timerId = item?.timerId;
+      item?.startDate;
+      item?.dateTime;
+      (item.day = new Date(item.dateTime).getDay()),
+        (item.hour = new Date(item.dateTime).getHours()),
+        (item.minute = new Date(item.dateTime).getMinutes()),
+        (item.second = new Date(item.dateTime).getSeconds()),
+        audioData.forEach((item) => {
+          if (item.audioId === getTimer?.sound) {
+            setSound(item.track);
+          }
+        });
+      setTitle(item?.title);
+      setVolume(item?.volume);
     });
-    setTitle(getTimer?.title);
-    setVolume(getTimer?.volume);
-    if (flag === false) {
-      debugger;
-      stop();
-      debugger;
-    }
     // setFlag(true);
     setDateIntval(
       setInterval(() => {
         setDateTimer(getTimer);
       }, 1000)
     );
+    getTimer.forEach((item) => {
+      if (item.timerId === timerId) {
+        item.timeoutId = dateIntval;
+      }
+    });
+    localStorage.setItem("timer", JSON.stringify(getTimer));
   };
 
-  useEffect(() => {}, [isInaterval]);
   useEffect(() => {
     const reRenderTimer = () => {
       if (JSON.parse(localStorage.getItem("timer")) === null) {
-        setFlag(false);
+        return setFlag(false);
+      } else {
+        //  return getTimers();
+        // setFlag(true)
+        // setIsResume(false);
+        debugger;
       }
-      //else if (JSON.parse(localStorage.getItem("timer"))){
-      //     getTimers();
-      // }
     };
     return reRenderTimer();
   }, []);
+
+  const deleteTimer = (tid) => {
+    const deleTimer = JSON.parse(localStorage.getItem("timer"));
+    const delTimer = deleTimer.filter((item) => item?.timerId !== tid);
+    localStorage.setItem("timer", JSON.stringify(delTimer));
+    setIsDataFlag(!isDataFlag);
+  };
 
   return (
     <div
@@ -475,10 +543,10 @@ function Timer({ data }) {
     >
       <DisplayTimer
         title={title}
-        timerDay={updateDateTime ? updateDateTime : "0"}
-        timerHour={updateHour}
-        timerMinute={updateMinute}
-        timerSecond={updateSecond}
+        timerDay={updateDateTime}
+        timerHour={timerHour}
+        timerMinute={timerMinute}
+        timerSecond={timerSecond}
         isFlag={isFlag}
       />
       <div style={{ marginRight: "2%" }}>
@@ -512,10 +580,8 @@ function Timer({ data }) {
         <DisplayTimerModal
           timerModal={timerModal}
           handleCloseRing={handleCloseRing}
-          title={title}
           setFlag={setFlag}
-          methods={methods}
-          timerId={timerId}
+          ringData={ringData}
         />
       </div>
       <Divider />
@@ -525,13 +591,8 @@ function Timer({ data }) {
       <Divider />
       <SpecificTimerHour handleSpecificHpour={handleSpecificHour} />
       <Divider />
+      <TimerHistory deleteTimer={deleteTimer} isDataFlag={isDataFlag} />
       <div>
-        <CSVLink data={data} style={{ width: "100%", textDecoration: "none" }}>
-          <button className={styles.csv_button}>
-            <BiExport />
-            Export To CSV
-          </button>
-        </CSVLink>
         <div className={styles.timer_info}>{data}</div>
         <div className={styles.timer_info_sub}>{data}</div>
       </div>

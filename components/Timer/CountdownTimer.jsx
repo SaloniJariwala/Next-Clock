@@ -17,8 +17,6 @@ const CountdownTimer = ({
   handleEditAlarm,
   getTimers,
   FalgSet,
-  flag,
-  isInaterval,
 }) => {
   const methods = useForm();
   const { control } = methods;
@@ -35,12 +33,16 @@ const CountdownTimer = ({
 
   const handleFormSubmit = (formData) => {
     let data=JSON.parse(localStorage.getItem('timer'))||[];
+    let startDate=new Date();
+    let stopTime=new Date();
     if(isEdit){
       handleEditAlarm();
     }else{
       const setTimer = {
         timerId:uuidv4(),
         timeoutId:"",
+        startDate:startDate,
+        stopTime:"",
         hour: formData?.hour,
         minute: formData?.minute ,
         second: formData?.second ,
