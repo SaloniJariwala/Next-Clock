@@ -4,10 +4,11 @@ import DateTimeContainer from "./DateTimeContainer";
 import DateTimerModalButton from "./DateTimerModalButton";
 import DateTimerSound from "./DateTimerSound";
 import DateTimerTitleContainer from "./DateTimeTitle";
+import { v4 as uuidv4 } from "uuid";
 
 function DateTimer({ TimerModalClose, FalgSet, getDateTimer,flag}) {
   const methods = useForm();
-
+  let startTime=new Date();
   const resetForm = () => {
     methods.setValue("dateTime", new Date());
     methods.setValue("hour", 0);
@@ -18,23 +19,23 @@ function DateTimer({ TimerModalClose, FalgSet, getDateTimer,flag}) {
     methods.setValue("onzero", "stoptimer");
   };
   const handleFormSubmit = (data) => {
-    debugger;
+    const dateTimer=JSON.parse(localStorage.getItem('timer')) ||[];
     const setTimer = {
+      timerId:uuidv4(),
+      timeoutId:"",
+      startDate:startTime,
+      stopTime:"",
       dateTime: data?.dateTime || 0,
       sound: data?.sound,
       title: data?.title,
       volume: data?.volume,
       flag:false
     };
-    debugger
-    localStorage.setItem("timer", JSON.stringify(setTimer));
-    debugger
+    dateTimer.push(setTimer)
+    localStorage.setItem("timer", JSON.stringify(dateTimer));
     FalgSet();
-    debugger
     TimerModalClose();
-    debugger
     getDateTimer();
-    debugger
     resetForm();
   };
   return (

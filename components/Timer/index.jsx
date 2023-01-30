@@ -95,6 +95,7 @@ function Timer({ data }) {
       }
     });
     localStorage.setItem("timer", JSON.stringify(getItem));
+    setIsDataFlag(!isDataFlag);
   };
 
   const setTimer = (hour = 0, minute = 0, second = 0) => {
@@ -160,6 +161,7 @@ function Timer({ data }) {
           setRingData(item);
         }
       });
+      setIsDataFlag(!isDataFlag);
 
       // const getHistory = JSON.parse(localStorage.getItem("his")) || [];
       // const timer = JSON.parse(localStorage.getItem("timer"));

@@ -100,7 +100,7 @@ function TimerHistory({ deleteTimer, isDataFlag }) {
       </div>
         </>)}
       <div>
-        <CSVLink
+        {/* <CSVLink
           data={csvData}
           style={{ width: "100%", textDecoration: "none" }}
         >
@@ -108,7 +108,7 @@ function TimerHistory({ deleteTimer, isDataFlag }) {
             <Image src={excelImage} alt={excelImage} style={{width:"20px",height:"20px"}}/>
             Export To CSV
           </button>
-        </CSVLink>
+        </CSVLink> */}
       </div>
     </div>
   );

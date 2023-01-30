@@ -35,6 +35,9 @@ const CountdownTimer = ({
     let data=JSON.parse(localStorage.getItem('timer'))||[];
     let startDate=new Date();
     let stopTime=new Date();
+    // const diff=(stopTime.getHours().getMinutes().getSeconds())-(startDate.getHours().getMinutes().getSeconds());
+    // let date=new Date(stTime);
+    // console.log(diff);
     if(isEdit){
       handleEditAlarm();
     }else{
