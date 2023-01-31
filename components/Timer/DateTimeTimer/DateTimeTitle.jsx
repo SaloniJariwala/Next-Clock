@@ -9,8 +9,8 @@ const DateTimerTitleContainer = ({ methods }) => {
     const { control } = methods;
 
     return (
-        <div>
-            <span className={styles.timer_inputTitle}>Title</span>
+        <div className={styles.container}>
+            <span className={styles.inputLabel}>Title</span>
             <Controller
                 control={control}
                 name="title"

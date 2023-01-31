@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Controller } from 'react-hook-form';
 import { Form } from 'react-bootstrap';
-import styles from "../../styles/Timer.module.css";
+import styles from "../../../styles/Timer.module.css";
 
 function TimeContainer({methods,isEdit}) {
     const { control } = methods;

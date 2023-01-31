@@ -1,16 +1,15 @@
 import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { Controller } from 'react-hook-form';
-import styles from "../../styles/Timer.module.css";
+import styles from "../../../styles/Timer.module.css";
 
 const TimerTitleContainer = ({ methods }) => {
 
-    const { t } = useTranslation();
     const { control } = methods;
 
     return (
-        <div>
-            <span className={styles.timer_inputTitle}>Title</span>
+        <div className={styles.container}>
+            <span className={styles.inputLabel}>Title</span>
             <Controller
                 control={control}
                 name="title"
@@ -21,7 +20,7 @@ const TimerTitleContainer = ({ methods }) => {
                         placeholder="Enter Timer Title"
                         value={value || ''}
                         onChange={onChange}
-                        style={{ color: '#112466' }}
+                        style={{ color: '#112466', width: '100%' }}
                     />
                 )}
             />
