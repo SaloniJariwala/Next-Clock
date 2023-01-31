@@ -12,11 +12,10 @@ const CategoryContainer = ({ methods, categoryData }) => {
             <span className={styles.inputTitle}>{i18n.t('category')}</span>
             <Controller
                 control={control}
-                name="country"
+                name="category"
                 render={({ field: { onChange, value } }) => (
                     <select
                         className="form-select"
-                        id="country"
                         aria-label="Floating label select example"
                         value={value}
                         onChange={onChange}

@@ -15,7 +15,7 @@ const TitleContainer = ({ methods }) => {
                 name="reminderTitle"
                 render={({ field: { onChange, value } }) => (
                     <input
-                        id="alarm-title"
+                        id="reminder-title"
                         className="form-control"
                         placeholder={i18n.t('enter_reminder_title')}
                         value={value || ''}
