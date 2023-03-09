@@ -1,0 +1,134 @@
+[
+  {
+    "_id": "63c67275fe5322934bf82146",
+    "abbr": "AEDT",
+    "name": "Antarctica/Macquarie",
+    "utc_offset": "+11:00",
+    "city": "Macquarie Island",
+    "countryId": "63c63a23fdc774a9535ae7fd",
+    "createdAt": "2023-01-17T10:03:33.166Z",
+    "updatedAt": "2023-01-17T10:03:33.166Z",
+    "__v": 0
+  },
+  {
+    "_id": "63c672acfe5322934bf82148",
+    "abbr": "ACDT",
+    "name": "Australia/Adelaide",
+    "utc_offset": "+10:30",
+    "city": "Adelaide",
+    "countryId": "63c63a23fdc774a9535ae7fd",
+    "createdAt": "2023-01-17T10:04:28.692Z",
+    "updatedAt": "2023-01-17T10:04:28.692Z",
+    "__v": 0
+  },
+  {
+    "_id": "63c67301fe5322934bf8214a",
+    "abbr": "AEST",
+    "name": "Australia/Brisbane",
+    "utc_offset": "+10:00",
+    "city": "Brisbane",
+    "countryId": "63c63a23fdc774a9535ae7fd",
+    "createdAt": "2023-01-17T10:05:53.996Z",
+    "updatedAt": "2023-01-17T10:05:53.996Z",
+    "__v": 0
+  },
+  {
+    "_id": "63c67343fe5322934bf8214c",
+    "abbr": "ACDT",
+    "name": "Australia/Broken_Hill",
+    "utc_offset": "+10:30",
+    "city": "Broken Hill, New South Wales",
+    "countryId": "63c63a23fdc774a9535ae7fd",
+    "createdAt": "2023-01-17T10:06:59.533Z",
+    "updatedAt": "2023-01-17T10:06:59.533Z",
+    "__v": 0
+  },
+  {
+    "_id": "63c6737cfe5322934bf8214e",
+    "abbr": "ACST",
+    "name": "Australia/Darwin",
+    "utc_offset": "+9:30",
+    "city": "Darwin",
+    "countryId": "63c63a23fdc774a9535ae7fd",
+    "createdAt": "2023-01-17T10:07:56.196Z",
+    "updatedAt": "2023-01-17T10:07:56.196Z",
+    "__v": 0
+  },
+  {
+    "_id": "63c673bffe5322934bf82150",
+    "abbr": "ACWST",
+    "name": "Australia/Eucla",
+    "utc_offset": "+8:45",
+    "city": "Eucla",
+    "countryId": "63c63a23fdc774a9535ae7fd",
+    "createdAt": "2023-01-17T10:09:03.287Z",
+    "updatedAt": "2023-01-17T10:09:03.287Z",
+    "__v": 0
+  },
+  {
+    "_id": "63c6751ffe5322934bf82152",
+    "abbr": "AEDT",
+    "name": "Australia/Hobart",
+    "utc_offset": "+11:00",
+    "city": "Hobart, Tasmania",
+    "countryId": "63c63a23fdc774a9535ae7fd",
+    "createdAt": "2023-01-17T10:14:55.548Z",
+    "updatedAt": "2023-01-17T10:14:55.548Z",
+    "__v": 0
+  },
+  {
+    "_id": "63c675a1fe5322934bf82154",
+    "abbr": "AEST",
+    "name": "Australia/Lindeman",
+    "utc_offset": "+10:00",
+    "city": "Lindeman Island, Queensland",
+    "countryId": "63c63a23fdc774a9535ae7fd",
+    "createdAt": "2023-01-17T10:17:05.137Z",
+    "updatedAt": "2023-01-17T10:17:05.137Z",
+    "__v": 0
+  },
+  {
+    "_id": "63c6763bfe5322934bf82156",
+    "abbr": "LHDT",
+    "name": "Australia/Lord_Howe",
+    "utc_offset": "+11:00",
+    "city": "Lord Howe Island",
+    "countryId": "63c63a23fdc774a9535ae7fd",
+    "createdAt": "2023-01-17T10:19:39.572Z",
+    "updatedAt": "2023-01-17T10:19:39.572Z",
+    "__v": 0
+  },
+  {
+    "_id": "63c6768afe5322934bf82158",
+    "abbr": "AEDT",
+    "name": "Australia/Melbourne",
+    "utc_offset": "+11:00",
+    "city": "Melbourne, Victoria",
+    "countryId": "63c63a23fdc774a9535ae7fd",
+    "createdAt": "2023-01-17T10:20:58.974Z",
+    "updatedAt": "2023-01-17T10:20:58.974Z",
+    "__v": 0
+  },
+  {
+    "_id": "63c676d8fe5322934bf8215a",
+    "abbr": "AWST",
+    "name": "Australia/Perth",
+    "utc_offset": "+8:00",
+    "city": "Perth, Western Australia",
+    "countryId": "63c63a23fdc774a9535ae7fd",
+    "createdAt": "2023-01-17T10:22:16.907Z",
+    "updatedAt": "2023-01-17T10:22:16.907Z",
+    "__v": 0
+  },
+  {
+    "_id": "63c67700fe5322934bf8215c",
+    "abbr": "AEDT",
+    "name": "Australia/Sydney",
+    "utc_offset": "+11:00",
+    "city": "Sydney",
+    "countryId": "63c63a23fdc774a9535ae7fd",
+    "createdAt": "2023-01-17T10:22:56.088Z",
+    "updatedAt": "2023-01-17T10:22:56.088Z",
+    "__v": 0
+  }
+]
